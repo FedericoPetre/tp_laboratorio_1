@@ -109,11 +109,11 @@ int multiplicacion(float numeroA, float numeroB, float* resultado)
  * @param resultadoFactorial: El resultado obtenido de calcular el factorial del numero ingresado se guarda bajo la direccion de memoria de este parametro
  * @return
  */
-int factorial(float numero, long* resultadoFactorial)
+int factorial(float numero, long long int* resultadoFactorial)
 {
 	int retorno= -1;
 	int numeroConvertidoAEntero;
-	long factorialNumero;
+	long long int factorialNumero;
 	int indice;
 	factorialNumero = 1;
 

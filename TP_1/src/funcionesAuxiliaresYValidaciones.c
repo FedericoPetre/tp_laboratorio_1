@@ -7,13 +7,84 @@
 
 #include "funcionesAuxiliaresYValidaciones.h"
 /**
+ * @fn int pedirYValidarFlotante(char*, char*, float*)
+ * @brief Esta funcion pide y valida la entrada de un numero Flotante
+ * @param mensaje mensaje que se muestra al usuario para pedir que ingrese un numero
+ * @param mensajeError mensaje que se muestra en caso de que el usuario ingresó erroneamente el numero (es decir, si ingreso una variable no numerica)
+ * @param numeroDeRetorno Se retorna el numero validado que el usuario ingreso a traves de un puntero
+ * @return retorna 0 si todo salio bien, -1 si no
+ */
+int pedirYValidarFlotante(char* mensaje, char* mensajeError, float* numeroDeRetorno)
+{
+	float numeroPedido;
+	int numeroValidacion;
+	int retorno = -1;
+
+	printf(mensaje);
+	fflush(stdin);
+	numeroValidacion = scanf("%f",&numeroPedido);
+
+	while(numeroValidacion == 0)
+	{
+		printf(mensajeError);
+		fflush(stdin);
+		numeroValidacion = scanf("%f",&numeroPedido);
+
+		if(numeroValidacion == 1)
+		{
+			break;
+		}
+	}
+
+	retorno = 0;
+	*numeroDeRetorno = numeroPedido;
+	return retorno;
+}
+/**
+ * @fn int pedirNumeroEntero(char*, char*, int, int, int*)
+ * @brief Esta funcion pide y valida el ingreso de un numero entero
+ *
+ * @param mensaje Mensaje que se muestra para que el usuario ingrese un numero entero
+ * @param mensajeError Mensaje que se muestra en caso de que el usuario ingrese una variable no numerica o un numero fuera del rango determinado
+ * @param min Valor minimo del rango en que se debe encontrar el numero
+ * @param max Valor maximo del rango en que se debe encontrar el numero
+ * @param numeroRetornado Variable en la que se retornará el numero pedido (a través de un puntero)
+ * @return retorno 0 salió todo bien
+ */
+int pedirNumeroEntero(char* mensaje, char* mensajeError, int min, int max, int* numeroRetornado)
+{
+	int retorno = -1;
+	int numero;
+	int numeroValidacion;
+
+	if(mensaje != NULL && mensajeError != NULL && min<max)
+	{
+		printf(mensaje);
+		fflush(stdin);
+		numeroValidacion = scanf("%d",&numero);
+
+		while(numeroValidacion == 0 || numero>max || numero<min)
+		{
+			printf(mensajeError);
+			fflush(stdin);
+			numeroValidacion = scanf("%d",&numero);
+		}
+
+		retorno = 0;
+		*numeroRetornado = numero;
+	}
+
+	return retorno;
+}
+
+/**
  * @fn void mostrarMensaje(int, float, char*, char*)
  * @brief Esta funcion muestra, dependiendo el valor ingresado de la bandera, un mensaje u otro (incluyendo el numero ingresado).
  *
  * @param bandera: esta bandera representa el estado del ingreso del numero en el menu, si se ingresó el numero vale 1, sino vale 0
  * @param numero : Numero que se muestra junto con el segundo mensaje.
  * @param mensaje1 mensaje que se muestra si la bandera vale 0
- * @param mensaje2 mensaje mostrado si la bandera no vale 0 (es decir, si la bandera vale 1), este mensaje hay que incluirlo con la mascara del numero flotante, ya que parte del mensaje es mostrar el numero ingresado
+ * @param mensaje2 mensaje mostrado si la bandera vale 1, este mensaje hay que incluirlo con la mascara del numero flotante, para que pueda mostrarlo
  */
 void mostrarMensaje(int bandera, float numero, char* mensaje1, char* mensaje2)
 {
@@ -25,19 +96,6 @@ void mostrarMensaje(int bandera, float numero, char* mensaje1, char* mensaje2)
 	{
 		printf(mensaje2, numero);
 	}
-}
-/**
- * @fn void mensajeIngresoNumero(char*, char*)
- * @brief Esta funcion muestra dos mensajes en forma consecutiva para avisar al usuario que ya se ingreso el numero
- *
- * @param mensaje1
- * @param mensaje2
- */
-void mensajeIngresoNumero(char* mensaje1, char* mensaje2)
-{
-	printf(mensaje1);
-	printf(mensaje2);
-	fflush(stdin);
 }
 /**
  * @fn void mostrarMensajeFaltaOperando(int, int)

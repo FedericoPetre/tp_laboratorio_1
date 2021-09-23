@@ -15,6 +15,6 @@ int sumar(float numeroA, float numeroB, float* resultado);
 int restar(float numeroA, float numeroB, float* resultado);
 int dividir(float numeroA, float numeroB, float* resultado);
 int multiplicacion(float numeroA, float numeroB, float* resultado);
-int factorial(float numero, long* resultadoFactorial);
+int factorial(float numero, long long int* resultadoFactorial);
 
 #endif /* FUNCIONESMATEMATICAS_H_ */
