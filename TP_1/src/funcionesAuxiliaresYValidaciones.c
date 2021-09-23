@@ -2,7 +2,7 @@
  * funcionMenuYValidaciones.c
  *
  *  Created on: 18 sep. 2021
- *      Author: Owner
+ *      Author: Federico Petre
  */
 
 #include "funcionesAuxiliaresYValidaciones.h"

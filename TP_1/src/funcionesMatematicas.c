@@ -2,7 +2,7 @@
  * funcionesMatematicas.c
  *
  *  Created on: 11 sep. 2021
- *      Author: Owner
+ *      Author: Federico Petre
  */
 
 #include "funcionesMatematicas.h"

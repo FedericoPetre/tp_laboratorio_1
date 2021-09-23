@@ -2,7 +2,7 @@
  * funcionesMatematicas.h
  *
  *  Created on: 11 sep. 2021
- *      Author: Owner
+ *      Author: Federico Petre
  */
 
 #ifndef FUNCIONESMATEMATICAS_H_

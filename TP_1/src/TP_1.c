@@ -14,9 +14,6 @@
 #include "funcionesMatematicas.h"
 #include "funcion_menu.h"
 
-// Alumno: Federico Petre
-// DIV D
-
 int main(void) {
 	setbuf(stdout, NULL);
 	funcion_Menu();
