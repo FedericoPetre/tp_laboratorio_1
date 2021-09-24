@@ -135,3 +135,4 @@ int mostrarMensajeFaltaOperando(int bandera1, int bandera2)
 	return retorno;
 }
 
+

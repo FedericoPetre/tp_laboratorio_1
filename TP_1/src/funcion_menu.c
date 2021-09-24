@@ -58,16 +58,17 @@ void funcion_Menu(void)
 				printf("Elejiste calcular todas las operaciones\n");
 				if(mostrarMensajeFaltaOperando(banderaPrimerOperando, banderaSegundoOperando) == 0)
 				{
+					banderaCalculos = 1; // la bandera cambia de estado porque ya estamos en condiciones de calcular todas las operaciones
+					printf("Calcular la suma (%.2f+%.2f)\nCalcular la resta (%.2f-%.2f)\nCalcular la division (%.2f/%.2f)\nCalcular la multiplicacion (%.2f*%.2f)\nCalcular el factorial (%.2f!) y (%.2f!)\n",primerOperando, segundoOperando, primerOperando, segundoOperando, primerOperando, segundoOperando, primerOperando, segundoOperando, primerOperando, segundoOperando); // perdon por esta linea tan larga
 					sumar(primerOperando, segundoOperando, &resultadoSuma);
 					restar(primerOperando, segundoOperando, &resultadoResta);
 					dividir(primerOperando, segundoOperando, &resultadoDivision);
 					multiplicacion(primerOperando, segundoOperando, &resultadoMultiplicacion);
 					factorial(primerOperando, &factorialPrimerOperando);
 					factorial(segundoOperando, &factorialSegundoOperando);
-
-					banderaCalculos = 1; // la bandera cambia a 1 porque ya se calcularon todas las operaciones
 					printf("se calcularon todas las operaciones");
 				}
+
 				break;
 			case 4:
 				printf("Elejiste informar los resultados\n");
