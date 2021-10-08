@@ -15,7 +15,7 @@
 
 #define TRUE 1
 #define FALSE 0
-#define CANTIDADEMPLEADOS 5
+#define CANTIDADEMPLEADOS 1000
 
 typedef struct {
 	int id;

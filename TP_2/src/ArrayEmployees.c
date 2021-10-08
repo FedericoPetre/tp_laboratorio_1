@@ -94,7 +94,7 @@ int addEmployee(Employee* list, int len, int id, char name[], char lastName[], f
 
 			printf("%-10s %-20s %-20s %-20s %-20s\n", "ID", "NOMBRE", "APELLIDO", "SALARIO", "SECTOR");
 			showEmployee(list[emptyPosition]);
-			pedirYValidarCaracter("Esta seguro que desea ingresarlo en el sistema? (s/n)\n", "Error, esta seguro que desea ingresarlo en el sistema? (s/n)\n", &answer);
+			funcionesInputs_pedirYValidarCaracter("Esta seguro que desea ingresarlo en el sistema? (s/n)\n", "Error, esta seguro que desea ingresarlo en el sistema? (s/n)\n", &answer);
 
 			if(answer != 's')
 			{
@@ -182,10 +182,10 @@ int registerEmployee(Employee* list, int len, int lastId)
 	if(list != NULL && len > -1)
 	{
 		idAux = lastId + 1; // esta linea es para implementar el id incremental
-		pedirYValidarCadena("Ingrese nombre de/la empleado/a (max 51 caracteres)", "Error, reingrese nombre de/la empleado/a (max 51 caracteres)", 51, nameAux);
-		pedirYValidarCadena("Ingrese apellido de/la empleado/a (max 51 caracteres)", "Error, reingrese apellido de/la empleado/a (max 51 caracteres)", 51, lastNameAux);
-		pedirYValidarFlotante("Ingrese salario a registrar (0-300000)", "Error, reingrese salario a registrar (0-300000)", 0, 300000, &salaryAux);
-		pedirYValidarEntero("Ingrese sector del empleado (0-20)", "Error, reingrese sector del empleado (0-20)", 0, 20, &sectorAux);
+		funcionesInputs_pedirYValidarCadena("Ingrese nombre de/la empleado/a (max 51 caracteres)", "Error, reingrese nombre de/la empleado/a (max 51 caracteres)", 51, nameAux);
+		funcionesInputs_pedirYValidarCadena("Ingrese apellido de/la empleado/a (max 51 caracteres)", "Error, reingrese apellido de/la empleado/a (max 51 caracteres)", 51, lastNameAux);
+		funcionesInputs_pedirYValidarFlotante("Ingrese salario a registrar (0-300000)", "Error, reingrese salario a registrar (0-300000)", 0, 300000, &salaryAux);
+		funcionesInputs_pedirYValidarEntero("Ingrese sector del empleado (0-20)", "Error, reingrese sector del empleado (0-20)", 0, 20, &sectorAux);
 
 		validacionRegistro = addEmployee(list, len, idAux, nameAux, lastNameAux, salaryAux, sectorAux);
 
@@ -273,7 +273,7 @@ int getDownEmployee(Employee* list, int len)
 
 	if(list != NULL && len > 0)
 	{
-		pedirYValidarEnteroSinRango("Ingrese ID del empleado a dar de baja", "Error, reingrese ID entero, numérico, del empleado a dar de baja", &id);
+		funcionesInputs_pedirYValidarEnteroSinRango("Ingrese ID del empleado a dar de baja", "Error, reingrese ID entero, numérico, del empleado a dar de baja", &id);
 		indexRemove = findEmployeeById(list, len, id);
 
 		if(indexRemove != -1)
@@ -281,7 +281,7 @@ int getDownEmployee(Employee* list, int len)
 			printf("Mostrando empleado a dar de baja....\n");
 			printf("%-10s %-20s %-20s %-20s %-20s\n", "ID", "NOMBRE", "APELLIDO", "SALARIO", "SECTOR");
 			showEmployee(list[indexRemove]);
-			pedirYValidarCaracter("Esta seguro que desea darlo de baja del sistema? (s/n)\n", "Error, esta seguro que desea darlo de baja del sistema? (s/n)\n", &answer);
+			funcionesInputs_pedirYValidarCaracter("Esta seguro que desea darlo de baja del sistema? (s/n)\n", "Error, esta seguro que desea darlo de baja del sistema? (s/n)\n", &answer);
 
 			if(answer != 'n' && list[indexRemove].isEmpty == FALSE)
 			{
@@ -349,7 +349,7 @@ int sortEmployeesBySectorAndLastName(Employee* list, int len, int order)
 		switch(order)
 		{
 		case 0:
-			printf("Has elejido el orden 0- descendente\n");
+			printf("Has elejido el orden 0- Decreciente\n");
 			nuevoLimite = len -1;
 			do{
 				flagSwap = 0;
@@ -383,7 +383,7 @@ int sortEmployeesBySectorAndLastName(Employee* list, int len, int order)
 
 			break;
 		case 1:
-			printf("Has elejido el orden 1- ascendente\n");
+			printf("Has elejido el orden 1- Creciente\n");
 			nuevoLimite = len -1;
 			do{
 				flagSwap = 0;
@@ -471,7 +471,7 @@ int calculateTotalAndAverageSalaries(Employee* list, int len)
 		}
 		retorno = 0;
 
-		printf("%-20s %-20s %-43s\n", "TOTAL SALARIO", "SALARIO PROMEDIO", "EMPLEADOS QUE SUPERAN EL SALARIO PROMEDIO");
+		printf("%-20s %-20s %-43s\n", "TOTAL SALARIO", "SALARIO PROMEDIO", "EMPLEADOS QUE SUPERAN EL PROMEDIO");
 		printf("%-20.2f %-20.2f %-43d\n", acumuladorSalarios, salarioPromedio, contadorSalariosQueSuperanElPromedio);
 	}
 	return retorno;

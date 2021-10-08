@@ -16,7 +16,7 @@
  * @param max Cantidad máxima de caracteres que puede poseer la cadena
  * @param cadenaDeRetorno Cadena de caracteres que retorna la funcion (a través de un puntero)
  */
-void pedirYValidarCadena(char* mensaje, char* mensajeError, int max, char* cadenaDeRetorno)
+void funcionesInputs_pedirYValidarCadena(char* mensaje, char* mensajeError, int max, char* cadenaDeRetorno)
 {
 	char cadenaAux[300];
 	int numeroValidacion1;
@@ -30,7 +30,9 @@ void pedirYValidarCadena(char* mensaje, char* mensajeError, int max, char* caden
 
 		numeroValidacion1 = scanf("%[^\n]", cadenaAux);
 		largoCadena = strlen(cadenaAux);
-		numeroDeValidacion2 = verificarCadena(cadenaAux);
+		numeroDeValidacion2 = funcionesInputs_verificarCadena(cadenaAux);
+		strlwr(cadenaAux);
+		cadenaAux[0] = toupper(cadenaAux[0]);
 
 		while(numeroValidacion1 == 0 || largoCadena > max || numeroDeValidacion2 != -1)
 		{
@@ -39,7 +41,9 @@ void pedirYValidarCadena(char* mensaje, char* mensajeError, int max, char* caden
 
 			numeroValidacion1 = scanf("%[^\n]", cadenaAux);
 			largoCadena = strlen(cadenaAux);
-			numeroDeValidacion2 = verificarCadena(cadenaAux);
+			numeroDeValidacion2 = funcionesInputs_verificarCadena(cadenaAux);
+			strlwr(cadenaAux);
+			cadenaAux[0] = toupper(cadenaAux[0]);
 		}
 		strcpy(cadenaDeRetorno, cadenaAux);
 	}
@@ -47,12 +51,12 @@ void pedirYValidarCadena(char* mensaje, char* mensajeError, int max, char* caden
 
 /**
  * @fn int verificarCadena(char*)
- * @brief Verifica que en todas las posiciones de la cadena no haya ningun caracter no valido (es decir que no sea una letra)
+ * @brief Verifica que en todas las posiciones de la cadena no haya ningun caracter no valido (es se verifica que todas sean letra)
  *
  * @param cadena Cadena que se verifica toda sus posiciones
  * @return Si la cadena tiene alguna posicion cargada con un elemento que no sea un caracter, la funcion retorna esa posicion. De lo contrario retorna -1 (todo está Ok).
  */
-int verificarCadena(char* cadena)
+int funcionesInputs_verificarCadena(char* cadena)
 {
 	int index = -1;
 	int longitudCadena;
@@ -83,7 +87,7 @@ int verificarCadena(char* cadena)
  * @param numeroRetornado número que retorna la función (a través de un puntero)
  * @return
  */
-int pedirYValidarEntero(char* mensaje, char* mensajeError, int min, int max, int* numeroRetornado)
+int funcionesInputs_pedirYValidarEntero(char* mensaje, char* mensajeError, int min, int max, int* numeroRetornado)
 {
 	int retorno = -1;
 	int numeroValidacion;
@@ -120,7 +124,7 @@ int pedirYValidarEntero(char* mensaje, char* mensajeError, int min, int max, int
  * @param numeroRetornado Numero flotante retornado por la función (por puntero).
  * @return
  */
-int pedirYValidarFlotante(char* mensaje, char* mensajeError, float min, float max, float* numeroRetornado)
+int funcionesInputs_pedirYValidarFlotante(char* mensaje, char* mensajeError, float min, float max, float* numeroRetornado)
 {
 	int retorno = -1;
 	int numeroValidacion;
@@ -146,7 +150,16 @@ int pedirYValidarFlotante(char* mensaje, char* mensajeError, float min, float ma
 	return retorno;
 }
 
-int pedirYValidarCaracter(char* mensaje, char* mensajeError, char* letraDeRetorno)
+/**
+ * @fn int funcionesInputs_pedirYValidarCaracter(char*, char*, char*)
+ * @brief Pide un caracter, lo valida y lo retorna.
+ *
+ * @param mensaje Mensaje que se muestra para pedir el ingreso del caracter (letra)
+ * @param mensajeError Mensaje mostrado en caso de ser erroneo el ingreso del caracter
+ * @param letraDeRetorno Puntero, por donde se retorna la letra pedida
+ * @return Retorna -1 si hay algún error 0 si no.
+ */
+int funcionesInputs_pedirYValidarCaracter(char* mensaje, char* mensajeError, char* letraDeRetorno)
 {
 	int retorno = -1;
 	char letra;
@@ -171,7 +184,16 @@ int pedirYValidarCaracter(char* mensaje, char* mensajeError, char* letraDeRetorn
 	return retorno;
 }
 
-int pedirYValidarEnteroSinRango(char* mensaje, char* mensajeError, int* numeroRetornado)
+/**
+ * @fn int funcionesInputs_pedirYValidarEnteroSinRango(char*, char*, int*)
+ * @brief Pide, valida y retorna un entero cualquiera
+ *
+ * @param mensaje Mensaje mostrado para pedir el ingreso del número
+ * @param mensajeError Mensaje mostrado para avisar de que el numero ingresado no es valido
+ * @param numeroRetornado Puntero, por donde se retorna el numero pedido
+ * @return Retorna -1 si hay algún error 0 si no.
+ */
+int funcionesInputs_pedirYValidarEnteroSinRango(char* mensaje, char* mensajeError, int* numeroRetornado)
 {
 	int retorno = -1;
 	int numeroValidacion;
