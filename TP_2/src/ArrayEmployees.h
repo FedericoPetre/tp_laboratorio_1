@@ -39,6 +39,7 @@ int getDownEmployee(Employee* list, int len);
 int sortEmployees(Employee* list, int len, int order);
 int sortEmployeesBySectorAndLastName(Employee* list, int len, int order);
 int calculateTotalAndAverageSalaries(Employee* list, int len);
+int printEmployeesID(Employee* list, int len);
 
 
 #endif /* ARRAYEMPLOYEES_H_ */

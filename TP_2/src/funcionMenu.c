@@ -2,7 +2,7 @@
  * funcionMenu.c
  *
  *  Created on: 7 oct. 2021
- *      Author: Owner
+ *      Author: Federico Petre
  */
 
 #include "funcionMenu.h"
@@ -50,8 +50,6 @@ void funcionMenu_mostrarMenu(void)
 					printf("Elejiste la opcion 2- MODIFICAR\n");
 					editEmployeeMenu(empleados, CANTIDADEMPLEADOS);
 				}
-
-				// Hacer el pedido del id, permitiendo modificar: o nombre o apellido o salario o sector
 				break;
 			case 3:
 				if(empleadosEnElSistema == 0)
@@ -75,7 +73,7 @@ void funcionMenu_mostrarMenu(void)
 				}
 				else
 				{
-					printf("Elejiste la opcion 4- INFORMAR\nInformando empleados del sistema....\nListado de empleados alfabeticamente por Apellido y Sector:\n");
+					printf("Elejiste la opcion 4- INFORMAR\n");
 					funcionSubmenuInformarEmpleados(empleados, CANTIDADEMPLEADOS);
 					printf("Total y promedio de los salarios y cuantos superan el salario promedio:\n");
 					calculateTotalAndAverageSalaries(empleados, CANTIDADEMPLEADOS);

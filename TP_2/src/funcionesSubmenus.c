@@ -18,7 +18,7 @@ void funcionSubmenuInformarEmpleados(Employee* list, int cantidadEmpleados)
 {
 	int opcionSubmenu;
 
-	funcionesInputs_pedirYValidarEntero("Informar empleados de manera creciente o decrecientemente por apellido y sector? (Crec: 1 - Decrec: 0)\n", "Error, numero no válido, ingrese '1' para informar crecientemente, '0' para informar decrecientemente)\n", 0, 1, &opcionSubmenu);
+	funcionesInputs_pedirYValidarEntero("Informar empleados de manera creciente o decrecientemente por apellido y sector? (Creciente: 1 - Decreciente: 0)\n", "Error, numero no válido, ingrese '1' para informar crecientemente, '0' para informar decrecientemente)\n", 0, 1, &opcionSubmenu);
 	sortEmployees(list, cantidadEmpleados, opcionSubmenu);
 	printEmployees(list, cantidadEmpleados);
 }
@@ -43,7 +43,9 @@ void editEmployeeMenu(Employee* list, int len)
 
 	if(list != NULL && len > -1)
 	{
-		funcionesInputs_pedirYValidarEnteroSinRango("Ingrese el ID del empleado a modificar datos\n", "Ingrese un ID valido (numerico) del empleado a modificar\n", &idWanted);
+		printf("Mostrando IDS de empleados registrados...\n");
+		printEmployeesID(list, len);
+		funcionesInputs_pedirYValidarEnteroSinRango("\nIngrese el ID del empleado a modificar datos\n", "Ingrese un ID valido (numerico) del empleado a modificar\n", &idWanted);
 
 		indexFound = findEmployeeById(list, len, idWanted);
 
@@ -52,7 +54,7 @@ void editEmployeeMenu(Employee* list, int len)
 			printf("%-10s %-20s %-20s %-20s %-20s\n", "ID", "NOMBRE", "APELLIDO", "SALARIO", "SECTOR");
 			showEmployee(list[indexFound]);
 
-			funcionesInputs_pedirYValidarEntero("Que dato quiere modificar?\nElija opcion:\n1- Nombre\n2- Apellido\n3- Salario\n4- Sector\n", "Error, que dato quiere modificar?\nElija opcion (1-4):\n1- Nombre\n2- Apellido\n3- Salario\n4- Sector\n", 1, 4, &editOption);
+			funcionesInputs_pedirYValidarEntero("Que dato quiere modificar?\nElija opcion:\n1- Nombre\n2- Apellido\n3- Salario\n4- Sector\n5- Volver al menu\n", "Error, que dato quiere modificar?\nElija opcion (1-4):\n1- Nombre\n2- Apellido\n3- Salario\n4- Sector\n5- Volver al menu\n", 1, 5, &editOption);
 
 			switch(editOption)
 			{
@@ -93,11 +95,18 @@ void editEmployeeMenu(Employee* list, int len)
 						list[indexFound].sector = sectorAux;
 					}
 					break;
+				case 5:
+					printf("Ha elejido la opcion 5- Volver al menu principal\n");
+					break;
 				default:
 					printf("Error al registrar la opcion elegida\n");
 					break;
 			}
-			printf("Se ha realizado la modificacion con exito\n");
+
+			if(editOption != 5)
+			{
+				printf("Se ha realizado la modificacion con exito\n");
+			}
 		}
 		else
 		{

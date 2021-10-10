@@ -349,7 +349,7 @@ int sortEmployeesBySectorAndLastName(Employee* list, int len, int order)
 		switch(order)
 		{
 		case 0:
-			printf("Has elejido el orden 0- Decreciente\n");
+			printf("Has elejido la opcion 0- INFORMAR de manera decreciente\n");
 			nuevoLimite = len -1;
 			do{
 				flagSwap = 0;
@@ -383,7 +383,7 @@ int sortEmployeesBySectorAndLastName(Employee* list, int len, int order)
 
 			break;
 		case 1:
-			printf("Has elejido el orden 1- Creciente\n");
+			printf("Has elejido la opcion 1- INFORMAR de manera creciente\n");
 			nuevoLimite = len -1;
 			do{
 				flagSwap = 0;
@@ -473,6 +473,33 @@ int calculateTotalAndAverageSalaries(Employee* list, int len)
 
 		printf("%-20s %-20s %-43s\n", "TOTAL SALARIO", "SALARIO PROMEDIO", "EMPLEADOS QUE SUPERAN EL PROMEDIO");
 		printf("%-20.2f %-20.2f %-43d\n", acumuladorSalarios, salarioPromedio, contadorSalariosQueSuperanElPromedio);
+	}
+	return retorno;
+}
+
+/**
+ * @fn int printEmployeesID(Employee*, int)
+ * @brief To print the ID employee list (if the employee isEmpty is false)
+ *
+ * @param list Employee* employee list
+ * @param len int Lengh
+ * @return Return -1 if error [Invalid length or Null List] , 0 if ok.
+ */
+int printEmployeesID(Employee* list, int len)
+{
+	int retorno = -1;
+	int i;
+
+	if(list != NULL && len > 0)
+	{
+		for(i=0; i<len ; i++)
+		{
+			if(list[i].isEmpty == FALSE)
+			{
+				printf("%d -", list[i].id);
+				retorno = 0;
+			}
+		}
 	}
 	return retorno;
 }
