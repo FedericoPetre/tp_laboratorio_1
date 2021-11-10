@@ -24,20 +24,28 @@ Employee* employee_new()
  * @param horasTrabajadasStr Parametro horas trabajadas (por puntero)
  * @return
  */
-Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr)
+Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr, char* sueldoStr)
 {
 	Employee* punteroAEmpleado = NULL;
 	punteroAEmpleado = employee_new();
 
 	int id;
 	int horasTrabajadas;
-	int retornoValidarNombre;
+	int sueldo;
 
-	if(punteroAEmpleado != NULL && idStr != NULL && nombreStr != NULL && horasTrabajadasStr != NULL)
+	int retornoID;
+	int retornoNombre;
+	int retornoHorasTrabajadas;
+	int retornoSueldo;
+
+	retornoID = funciones_imput_transformarAEntero(idStr);
+	retornoNombre = funciones_imput_verificarCadena(nombreStr);
+	retornoHorasTrabajadas = funciones_imput_transformarAEntero(horasTrabajadasStr);
+	retornoSueldo = funciones_imput_transformarAEntero(sueldoStr);
+
+	if(punteroAEmpleado != NULL && idStr != NULL && nombreStr != NULL && horasTrabajadasStr != NULL && sueldoStr != NULL)
 	{
-		retornoValidarNombre = funciones_imput_verificarCadena(nombreStr);
-
-		if(funciones_imput_transformarAEntero(idStr) != -1)
+		if(retornoID != -1)
 		{
 			id = funciones_imput_transformarAEntero(idStr);
 			employee_setId(punteroAEmpleado, id);
@@ -47,7 +55,7 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 			printf("Error al cargar el ID al nuevo empleado\n");
 		}
 
-		if(retornoValidarNombre == -1)
+		if(retornoNombre == -1)
 		{
 			employee_setNombre(punteroAEmpleado,nombreStr);
 		}
@@ -56,7 +64,7 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 			printf("Error al cargar el nombre al nuevo empleado\nEl nombre debe estar sin espacios (solo letras)\n");
 		}
 
-		if(funciones_imput_transformarAEntero(horasTrabajadasStr) != -1)
+		if(retornoHorasTrabajadas != -1)
 		{
 			horasTrabajadas = funciones_imput_transformarAEntero(horasTrabajadasStr);
 			employee_setHorasTrabajadas(punteroAEmpleado, horasTrabajadas);
@@ -66,9 +74,27 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 			printf("Error al cargar las horas trabajadas al nuevo empleado\n");
 		}
 
+		if(retornoSueldo != -1)
+		{
+			sueldo = funciones_imput_transformarAEntero(sueldoStr);
+			employee_setSueldo(punteroAEmpleado, sueldo);
+		}
+		else
+		{
+			printf("Error al cargar el sueldo al nuevo empleado\n");
+		}
+
 	}
 
-	return punteroAEmpleado;
+	if(retornoID != -1 && retornoNombre == -1 && retornoHorasTrabajadas != -1 && retornoSueldo != -1)
+	{
+		return punteroAEmpleado;
+	}
+	else
+	{
+		punteroAEmpleado = NULL;
+		return punteroAEmpleado;
+	}
 }
 
 /**

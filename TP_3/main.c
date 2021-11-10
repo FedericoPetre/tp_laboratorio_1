@@ -25,7 +25,7 @@ int main()
 	setbuf(stdout, NULL);
     int option = 0;
 
-    // LinkedList* listaEmpleados = ll_newLinkedList();
+    LinkedList* listaEmpleados = ll_newLinkedList();
 
     do{
     	funciones_imput_pedirYValidarEntero("Ingrese opcion:\n1-Cargar los datos de los empleados(modo texto)\n2-Cargar los datos de los empleados(modo binario)\n3-Alta de empleado\n4-Modificar datos de empleado\n5-Baja de empleado\n6-Listar empleados\n7-Ordenar empleados\n8-Guardar los datos de los empleados(modo texto)\n9-Guardar los datos de los empleados(modo binario)\n10-Salir\n", "Error, opcion no valida, reingrese opcion:\n1-Cargar los datos de los empleados(modo texto)\n2- Cargar los datos de los empleados(modo binario)\n3-Alta de empleado\n4-Modificar datos de empleado\n5-Baja de empleado\n6-Listar empleados\n7-Ordenar empleados\n8-Guardar los datos de los empleados(modo texto)\n9-Guardar los datos de los empleados(modo binario)\n10-Salir\n", 1, 10, &option);
@@ -34,10 +34,11 @@ int main()
         {
             case 1:
             	printf("Elejiste la opcion 1-Cargar los datos de los empleados(modo texto)\n");
-                //controller_loadFromText("data.csv",listaEmpleados);
+                controller_loadFromText("data.csv",listaEmpleados);
                 break;
             case 2:
             	printf("Elejiste la opcion 2-Cargar los datos de los empleados(modo binario)\n");
+            	//controller_loadFromBinary("data.csv",listaEmpleados);
 
                 break;
             case 3:
@@ -62,10 +63,12 @@ int main()
                 break;
             case 8:
             	printf("Elejiste la opcion 8-Guardar los datos de los empleados(modo texto)\n");
+            	//controller_saveAsText("data.csv",listaEmpleados);
 
                 break;
             case 9:
             	printf("Elejiste la opcion 9-Guardar los datos de los empleados(modo binario)\n");
+            	//controller_saveAsBinary("data.csv",listaEmpleados);
 
                 break;
             case 10:
