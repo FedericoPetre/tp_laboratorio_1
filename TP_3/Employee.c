@@ -257,4 +257,16 @@ int employee_getSueldo(Employee* this,int* sueldo)
 	return retorno;
 }
 
+int employee_showEmpleado(Employee* this)
+{
+	int retorno= 0;
+
+	if(this != NULL)
+	{
+		printf("%-5d %-12s %-16d %-9d\n", this->id, this->nombre, this->horasTrabajadas, this->sueldo);
+		retorno = 1;
+	}
+	return retorno;
+}
+
 

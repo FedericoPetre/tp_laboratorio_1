@@ -13,14 +13,27 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 {
 	FILE* pFile = NULL;
 	pFile = fopen(path, "r");
+	int estado = 1;
+	int retornoParser;
 
 	if(pFile != NULL && pArrayListEmployee != NULL)
 	{
-		parser_EmployeeFromText(pFile , pArrayListEmployee);
+		retornoParser = parser_EmployeeFromText(pFile , pArrayListEmployee);
 	}
+
 	fclose(pFile);
 
-    return 1;
+	if(retornoParser == 0)
+	{
+		printf("Se cargaron los datos desde el archivo, en modo texto\n");
+		estado = 0;
+	}
+	else
+	{
+		printf("Error al cargar los datos desde el archivo en modo texto\n");
+	}
+
+    return estado;
 }
 
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo binario).
@@ -30,8 +43,19 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
  * \return int
  *
  */
-int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
+int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee) // terminar esta funcion y el parser binary tambien (cargar los datos al archivo binario tmb)
 {
+	FILE* pFile = NULL;
+	pFile = fopen(path, "rb");
+
+	if(pFile != NULL && pArrayListEmployee != NULL)
+	{
+		parser_EmployeeFromBinary(pFile, pArrayListEmployee);
+	}
+	fclose(pFile);
+
+	printf("Se cargaron los datos desde el archivo, modo binario\n");
+
     return 1;
 }
 
@@ -56,7 +80,123 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_editEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int estado = 1;
+
+	int *pNumeroPedido = (int*) malloc(sizeof(int));
+
+	int tamListEmployee = ll_len(pArrayListEmployee);
+	int indexEmpleado = -1;
+
+	int opcion = -1;
+
+	char* nombreAux = (char*) malloc(sizeof(char)*128);
+	int* sueldoAux = (int*) malloc(sizeof(int));
+	int* horasTrabajadasAux = (int*) malloc(sizeof(int));
+
+	char* letraRespuesta = (char*) malloc(sizeof(char));
+
+	Employee* pEmpleadoAux = (Employee*) malloc(sizeof(Employee));
+
+	if(pArrayListEmployee != NULL)
+	{
+		funciones_imput_pedirYValidarEntero("Ingrese el id del empleado a modificar datos", "Error, ingrese el id del empleado a modificar datos (solo numeros)", 1, tamListEmployee, pNumeroPedido);
+
+		for(int j =0; j< tamListEmployee; j++)
+		{
+			Employee* pEmpleadoABuscar = ll_get(pArrayListEmployee, j);
+
+			if(pEmpleadoABuscar->id == *pNumeroPedido)
+			{
+				indexEmpleado = j;
+				break;
+			}
+			else
+			{
+				if((j == tamListEmployee -1) && (pEmpleadoABuscar->id != *pNumeroPedido))
+				{
+					printf("Error, no se encontro empleado con ese id\n");
+				}
+			}
+		}
+
+		if(indexEmpleado != -1)
+		{
+			Employee* pEmpleado = ll_get(pArrayListEmployee, indexEmpleado);
+			printf("Se encontro el empleado\nMostrando datos...\n");
+			printf("%-5s %-12s %-16s %-9s\n", "ID", "NOMBRE", "HORAS TRABAJO", "SUELDO");
+			employee_showEmpleado(pEmpleado);
+			employee_setId(pEmpleadoAux,*pNumeroPedido);
+			employee_setNombre(pEmpleadoAux, pEmpleado->nombre);
+			employee_setHorasTrabajadas(pEmpleadoAux, pEmpleado->horasTrabajadas);
+			employee_setSueldo(pEmpleadoAux, pEmpleado->sueldo);
+
+
+			funciones_imput_pedirYValidarEntero("Que dato desea modificar?\n1- Nombre\n2- Horas trabajadas\n3- Sueldo\n4- Atras\n", "Error al elejir opcion, reingrese (opc: 1, opc: 2, opc: 3, opc: 4):\n1- Nombre\n2- Horas trabajadas\n3- Sueldo\n4- Atras\n", 1, 4, &opcion);
+			switch(opcion)
+			{
+			case 1:
+				printf("Elejiste modificar nombre\n");
+				funciones_imput_pedirYValidarCadena("Ingrese nuevo nombre\n", "Error, reingrese nuevo nombre (letras, espacios y guiones solamente)\n", 128, nombreAux);
+				employee_setNombre(pEmpleadoAux, nombreAux);
+				printf("Mostrando Datos modificados:\n%-5s %-12s %-16s %-9s\n", "ID", "NOMBRE", "HORAS TRABAJO", "SUELDO");
+				employee_showEmpleado(pEmpleadoAux);
+				funciones_imput_pedirYValidarCaracter("Desea guardar la modificacion? (s: si, n: no)\n", "Error, desea guardar la modificacion anterior al empleado? (s: si, n: no) (ingrese una de las dos letras)\n", letraRespuesta);
+				if(*letraRespuesta == 's')
+				{
+					ll_set(pArrayListEmployee, indexEmpleado, pEmpleadoAux);
+					printf("Modificacion guardada con exito\n");
+					estado = 0;
+				}
+				else
+				{
+					printf("Se ha cancelado la modificacion\n");
+				}
+				break;
+			case 2:
+				printf("Elejiste modificar horas trabajadas\n");
+				funciones_imput_pedirYValidarEntero("Ingrese nuevas horas trabajadas (min: 1 max: 10000)\n","Error. reingrese nuevas horas trabajadas (min: 1 max: 10000)\n", 1, 10000, horasTrabajadasAux);
+				employee_setHorasTrabajadas(pEmpleadoAux,*horasTrabajadasAux);
+				printf("Mostrando Datos modificados:\n%-5s %-12s %-16s %-9s\n", "ID", "NOMBRE", "HORAS TRABAJO", "SUELDO");
+				employee_showEmpleado(pEmpleadoAux);
+				funciones_imput_pedirYValidarCaracter("Desea guardar la modificacion? (s: si, n: no)\n", "Error, desea guardar la modificacion anterior al empleado? (s: si, n: no) (ingrese una de las dos letras)\n", letraRespuesta);
+				if(*letraRespuesta == 's')
+				{
+					ll_set(pArrayListEmployee, indexEmpleado, pEmpleadoAux);
+					printf("Modificacion guardada con exito\n");
+					estado = 0;
+				}
+				else
+				{
+					printf("Se ha cancelado la modificacion\n");
+				}
+
+				break;
+			case 3:
+				printf("Elejiste modificar sueldo\n");
+				funciones_imput_pedirYValidarEntero("Ingrese nuevo sueldo (min: 0 max: 999999)\n","Error, reingrese nuevo sueldo (min: 0 max: 999999)\n", 0, 999999, sueldoAux);
+				employee_setSueldo(pEmpleadoAux,*sueldoAux);
+				printf("Mostrando Datos modificados:\n%-5s %-12s %-16s %-9s\n", "ID", "NOMBRE", "HORAS TRABAJO", "SUELDO");
+				employee_showEmpleado(pEmpleadoAux);
+				funciones_imput_pedirYValidarCaracter("Desea guardar la modificacion? (s: si, n: no)\n", "Error, desea guardar la modificacion anterior al empleado? (s: si, n: no) (ingrese una de las dos letras)\n", letraRespuesta);
+				if(*letraRespuesta == 's')
+				{
+					ll_set(pArrayListEmployee, indexEmpleado, pEmpleadoAux);
+					printf("Modificacion guardada con exito\n");
+					estado = 0;
+				}
+				else
+				{
+					printf("Se ha cancelado la modificacion\n");
+				}
+
+				break;
+			case 4:
+				printf("Elejiste volver al menu principal\n");
+				break;
+			}
+		}
+	}
+    return estado;
 }
 
 /** \brief Baja de empleado
@@ -102,7 +242,7 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 			{
 				printf("%-5s %-12s %-16s %-9s\n", "ID", "NOMBRE", "HORAS TRABAJO", "SUELDO");
 			}
-			printf("%-5d %-12s %-16d %-9d\n", (pEmpleados+j)->id, (pEmpleados+j)->nombre, (pEmpleados+j)->horasTrabajadas, (pEmpleados+j)->sueldo);
+			employee_showEmpleado((pEmpleados + j));
 		}
 	}
 
@@ -130,6 +270,39 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
+	FILE* pFile = NULL;
+	pFile = fopen(path, "w");
+
+	if(pFile != NULL)
+	{
+		fprintf(pFile,"%s,%s,%s,%s\n", "id", "nombre", "horasTrabajadas", "sueldo");
+		fclose(pFile);
+	}
+
+	FILE* pFile1 = NULL;
+	pFile1 = fopen(path, "a");
+	int i;
+	int tamLinkedList;
+
+	if(pFile1 != NULL && pArrayListEmployee != NULL)
+	{
+
+		tamLinkedList = ll_len(pArrayListEmployee);
+
+		for(i=0; i<tamLinkedList; i++)
+		{
+			Employee* pEmpleado = ll_get(pArrayListEmployee, i);
+
+			if(pEmpleado != NULL)
+			{
+				fprintf(pFile,"%d,%s,%d,%d\n", pEmpleado->id, pEmpleado->nombre, pEmpleado->horasTrabajadas, pEmpleado->sueldo);
+			}
+			pEmpleado = NULL;
+
+		}
+		fclose(pFile1);
+		printf("El archivo fue guardado exitosamente\n");
+	}
     return 1;
 }
 

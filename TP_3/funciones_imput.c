@@ -99,7 +99,7 @@ int funciones_imput_verificarCadena(char* cadena)
 
 		for(i=0; i<longitudCadena; i++)
 		{
-			if(isalpha(cadena[i]) == 0 && cadena[i] != ' ')
+			if(isalpha(cadena[i]) == 0 && cadena[i] != ' ' && cadena[i] != '-')
 			{
 				index = i;
 				break;
@@ -131,14 +131,14 @@ int funciones_imput_pedirYValidarEntero(char* mensaje, char* mensajeError, int m
 
 	if(mensaje != NULL && mensajeError != NULL && pNumero != NULL && min < max)
 	{
-		printf("%s",mensaje);
+		printf("%s\n",mensaje);
 		fflush(stdin);
 
 		numeroValidacion = scanf("%d", pNumeroAux);
 
 		while(numeroValidacion == 0 || *pNumeroAux < min || *pNumeroAux > max)
 		{
-			printf("%s",mensajeError);
+			printf("%s\n",mensajeError);
 			fflush(stdin);
 
 			numeroValidacion = scanf("%d", pNumeroAux);

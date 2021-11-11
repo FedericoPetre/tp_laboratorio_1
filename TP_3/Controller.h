@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "LinkedList.h"
 #include "Employee.h"
+#include "funciones_imput.h"
 
 
 int controller_loadFromText(char* path , LinkedList* pArrayListEmployee);

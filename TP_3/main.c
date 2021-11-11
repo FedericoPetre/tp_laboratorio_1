@@ -44,6 +44,7 @@ int main()
             	else
             	{
                     controller_loadFromText("data.csv",listaEmpleados);
+                    // printf("Se cargaron los datos modo texto con exito\n");
                     banderaEmpleadosModoTexto = 1;
             	}
                 break;
@@ -55,7 +56,7 @@ int main()
             	}
             	else
             	{
-                	//controller_loadFromBinary("data.csv",listaEmpleados);
+                	// controller_loadFromBinary("dataBinario.csv",listaEmpleados);
                 	banderaEmpleadosModoBinario = 1;
             	}
                 break;
@@ -65,7 +66,14 @@ int main()
                 break;
             case 4:
             	printf("Elejiste la opcion 4-Modificar datos de empleado\n");
-
+            	if(banderaEmpleadosModoTexto != 1 && banderaEmpleadosModoBinario != 1)
+            	{
+            		printf("Error al elegir modificación, no hay empleados cargados en el sistema\n");
+            	}
+            	else
+            	{
+            		controller_editEmployee(listaEmpleados);
+            	}
                 break;
             case 5:
             	printf("Elejiste la opcion 5-Baja de empleado\n");
@@ -103,7 +111,7 @@ int main()
             		{
             			if(banderaEmpleadosModoTexto == 1 && banderaEmpleadosModoBinario != 1)
             			{
-                    		//controller_saveAsText("data.csv",listaEmpleados);
+                    		controller_saveAsText("data.csv",listaEmpleados);
             			}
             		}
             	}
