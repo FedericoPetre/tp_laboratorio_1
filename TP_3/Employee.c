@@ -29,32 +29,18 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 	Employee* punteroAEmpleado = NULL;
 	punteroAEmpleado = employee_new();
 
-	int id;
-	int horasTrabajadas;
-	int sueldo;
-
-	int retornoID;
+	int idTransformado;
+	int horasTrabajadasTransformadas;
+	int sueldoTransformado;
 	int retornoNombre;
-	int retornoHorasTrabajadas;
-	int retornoSueldo;
 
-	retornoID = funciones_imput_transformarAEntero(idStr);
+	idTransformado = funciones_imput_transformarAEntero(idStr);
 	retornoNombre = funciones_imput_verificarCadena(nombreStr);
-	retornoHorasTrabajadas = funciones_imput_transformarAEntero(horasTrabajadasStr);
-	retornoSueldo = funciones_imput_transformarAEntero(sueldoStr);
+	horasTrabajadasTransformadas = funciones_imput_transformarAEntero(horasTrabajadasStr);
+	sueldoTransformado = funciones_imput_transformarAEntero(sueldoStr);
 
 	if(punteroAEmpleado != NULL && idStr != NULL && nombreStr != NULL && horasTrabajadasStr != NULL && sueldoStr != NULL)
 	{
-		if(retornoID != -1)
-		{
-			id = funciones_imput_transformarAEntero(idStr);
-			employee_setId(punteroAEmpleado, id);
-		}
-		else
-		{
-			printf("Error al cargar el ID al nuevo empleado\n");
-		}
-
 		if(retornoNombre == -1)
 		{
 			employee_setNombre(punteroAEmpleado,nombreStr);
@@ -64,37 +50,36 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 			printf("Error al cargar el nombre al nuevo empleado\nEl nombre debe estar sin espacios (solo letras)\n");
 		}
 
-		if(retornoHorasTrabajadas != -1)
+		if(horasTrabajadasTransformadas != -1)
 		{
-			horasTrabajadas = funciones_imput_transformarAEntero(horasTrabajadasStr);
-			employee_setHorasTrabajadas(punteroAEmpleado, horasTrabajadas);
+			employee_setHorasTrabajadas(punteroAEmpleado, horasTrabajadasTransformadas);
 		}
 		else
 		{
 			printf("Error al cargar las horas trabajadas al nuevo empleado\n");
 		}
 
-		if(retornoSueldo != -1)
+		if(sueldoTransformado != -1)
 		{
-			sueldo = funciones_imput_transformarAEntero(sueldoStr);
-			employee_setSueldo(punteroAEmpleado, sueldo);
+			employee_setSueldo(punteroAEmpleado, sueldoTransformado);
 		}
 		else
 		{
 			printf("Error al cargar el sueldo al nuevo empleado\n");
 		}
 
+		if(idTransformado != -1)
+		{
+			employee_setId(punteroAEmpleado, idTransformado);
+		}
+		else
+		{
+			printf("Error al cargar el ID al nuevo empleado\n");
+		}
+
 	}
 
-	if(retornoID != -1 && retornoNombre == -1 && retornoHorasTrabajadas != -1 && retornoSueldo != -1)
-	{
-		return punteroAEmpleado;
-	}
-	else
-	{
-		punteroAEmpleado = NULL;
-		return punteroAEmpleado;
-	}
+	return punteroAEmpleado;
 }
 
 /**

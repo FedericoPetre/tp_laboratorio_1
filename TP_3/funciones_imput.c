@@ -99,7 +99,7 @@ int funciones_imput_verificarCadena(char* cadena)
 
 		for(i=0; i<longitudCadena; i++)
 		{
-			if(isalpha(cadena[i]) == 0)
+			if(isalpha(cadena[i]) == 0 && cadena[i] != ' ')
 			{
 				index = i;
 				break;
@@ -261,12 +261,12 @@ int funciones_imput_pedirYValidarEnteroSinRango(char* mensaje, char* mensajeErro
  * @brief Para verificar que una cadena de caracteres esté compuesta solo por numeros enteros (entonces es un numero entero)
  *
  * @param numero Cadena a verificar
- * @return Retorna -1 si encuentra un caracter no numerico en la cadena (entonces no es numero entero) o si el parametro es NULL. retorna 0 caso contrario. (y es numero)
+ * @return Retorna la primera posicion en la que se encuentra un caracter no numerico. Si no encuentra ninguno, retorna 0.
  */
 int funciones_imput_validarNumeroEntero(char* numero)
 {
     int longitud;
-    int flagEsNumero = -1;
+    int flagEsNumero;
     int i;
     if(numero != NULL)
     {
@@ -274,13 +274,13 @@ int funciones_imput_validarNumeroEntero(char* numero)
 
         for(i=0; i<longitud; i++)
         {
-            if(isdigit(*(numero + i)) != 0)
+            if(*(numero+i)>47 && *(numero+i)<58)
             {
                 flagEsNumero = 0;
             }
             else
             {
-              flagEsNumero = -1;
+              flagEsNumero = i;
               break;
             }
         }
@@ -294,18 +294,15 @@ int funciones_imput_validarNumeroEntero(char* numero)
  * @brief Para transformar y retornar, si es posible, la cadena de caracteres numérica ingresada como un número entero (int).
  *
  * @param numero Cadena a transformar y retornar como entero.
- * @return Retorna -1 si la cadena no puede transformarse en numérica o el parametro ingresado es NULL. Caso contrario retorna la cadena transformada a entero.
+ * @return Retorna la cadena transformada a entero. En caso de no poder transformarla, retorna -1.
  */
 int funciones_imput_transformarAEntero(char* numero)
 {
 	int cadenaTransformada = -1;
 
-	if(numero != NULL)
+	if(funciones_imput_validarNumeroEntero(numero) == 0)
 	{
-		if(funciones_imput_validarNumeroEntero(numero) == 0)
-		{
-			cadenaTransformada = atoi (numero);
-		}
+		cadenaTransformada = atoi (numero);
 	}
 	return cadenaTransformada;
 }
