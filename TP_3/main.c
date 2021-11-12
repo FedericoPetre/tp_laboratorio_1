@@ -62,6 +62,21 @@ int main()
                 break;
             case 3:
             	printf("Elejiste la opcion 3-Alta de empleado\n");
+            	if(banderaEmpleadosModoTexto != 1 && banderaEmpleadosModoBinario != 1)
+            	{
+            		printf("Error al elegir alta de empleados, data de empleados vacia\n");
+            	}
+            	else
+            	{
+            		if(controller_addEmployee(listaEmpleados) == 0)
+            		{
+            			printf("Empleado dado de alta con exito\n");
+            		}
+            		else
+            		{
+            			printf("Error al dar de alta al nuevo empleado\n");
+            		}
+            	}
 
                 break;
             case 4:

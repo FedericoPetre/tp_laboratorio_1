@@ -68,7 +68,42 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee) // te
  */
 int controller_addEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int retorno = 1;
+
+	int nuevoID;
+	char nuevoIDTransformado[20];
+	char nombreEmpleado[20];
+	int horasTrabajadasEmpleado;
+	char horasTrabajadasTransformadas[20];
+	int sueldoEmpleado;
+	char sueldoEmpleadoTransformado[20];
+
+	Employee* pNuevoEmpleado;
+
+
+	if(pArrayListEmployee != NULL)
+	{
+
+		nuevoID = ll_len(pArrayListEmployee) + 1;
+		itoa(nuevoID, nuevoIDTransformado, 10);
+
+		funciones_imput_pedirYValidarCadena("Ingrese nombre del nuevo empleado\n", "Error, reingrese nombre del nuevo empleado (solo letras, espacios o guiones)\n", 127, nombreEmpleado);
+
+		funciones_imput_pedirYValidarEntero("Ingrese horas trabajadas del nuevo empleado (1-9999)\n", "Error, reingrese horas trabajadas del nuevo empleado (min: 1. max: 9999)\n", 1, 9999, &horasTrabajadasEmpleado);
+		itoa(horasTrabajadasEmpleado, horasTrabajadasTransformadas, 10);
+
+		funciones_imput_pedirYValidarEntero("Ingrese sueldo del nuevo empleado (1-200000)\n", "Error, reingrese sueldo del nuevo empleado (1-200000)\n", 1, 200000, &sueldoEmpleado);
+		itoa(sueldoEmpleado, sueldoEmpleadoTransformado, 10);
+
+		pNuevoEmpleado = employee_newParametros(nuevoIDTransformado, nombreEmpleado, horasTrabajadasTransformadas, sueldoEmpleadoTransformado);
+
+		ll_add(pArrayListEmployee, pNuevoEmpleado);
+
+		retorno = 0;
+
+	}
+
+    return retorno;
 }
 
 /** \brief Modificar datos de empleado

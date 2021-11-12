@@ -23,8 +23,6 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 		while(!feof(pFile))
 		{
 			fscanf(pFile,"%[^,] , %[^,] , %[^,] , %[^\n]", id, nombre, horasTrabajadas, sueldo);
-			printf("%s - %s - %s - %s\n", id, nombre, horasTrabajadas, sueldo);
-
 			if(feof(pFile) != 0)
 			{
 				break;
