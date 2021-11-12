@@ -65,3 +65,37 @@ int nexusEmployee_and_Ll_findLastID(LinkedList* this)
 	}
 	return ultimoID;
 }
+
+/**
+ * @fn Employee* nexusEmployee_and_Ll_getEmployees(LinkedList* this)
+ * @brief Para retornar un puntero a empleados que contenga los empleados que posee el linkedlist
+ *
+ * @param this LinkedList*
+ * @return Retorna un puntero empleados cargado con los empleados del linkedlist (si el linkedList esta vacio retorna un puntero vacio)
+ */
+Employee* nexusEmployee_and_Ll_getEmployees(LinkedList* this)
+{
+	int tamLinkedList;
+	int i;
+
+	tamLinkedList = ll_len(this);
+	Employee* pEmpleadosRetorno = NULL;
+
+	if(this != NULL)
+	{
+		Employee* pEmpleados = NULL;
+		pEmpleados = (Employee*) malloc(sizeof(Employee)*tamLinkedList);
+
+		for(i=0; i<tamLinkedList; i++)
+		{
+			Employee* pEmpleado = ll_get(this, i);
+			if(pEmpleado != NULL)
+			{
+				*(pEmpleados + i) = *pEmpleado;
+			}
+			pEmpleado = NULL;
+		}
+		pEmpleadosRetorno = pEmpleados;
+	}
+	return pEmpleadosRetorno;
+}

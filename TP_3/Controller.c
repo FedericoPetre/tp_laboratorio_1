@@ -26,7 +26,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 
 	if(retornoParser == 0)
 	{
-		printf("Se cargaron los datos desde el archivo, en modo texto\n");
+		printf("Se cargaron los datos exitosamente desde el archivo, en modo texto\n");
 		estado = 0;
 	}
 	else
@@ -80,6 +80,8 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 	char sueldoEmpleadoTransformado[20];
 	int ultimoID;
 
+	char* letraRespuesta = (char*) malloc(sizeof(char));
+
 	Employee* pNuevoEmpleado;
 
 	if(pArrayListEmployee != NULL)
@@ -98,10 +100,18 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 
 		pNuevoEmpleado = employee_newParametros(nuevoIDTransformado, nombreEmpleado, horasTrabajadasTransformadas, sueldoEmpleadoTransformado);
 
-		ll_add(pArrayListEmployee, pNuevoEmpleado);
-
-		retorno = 0;
-
+		printf("Mostrando nuevo empleado:\n%-5s %-12s %-16s %-9s\n", "ID", "NOMBRE", "HORAS TRABAJO", "SUELDO");
+		employee_showEmpleado(pNuevoEmpleado);
+		funciones_imput_pedirYValidarCaracter("Desea agregar este empleado al sistema? (s: si, n: no)\n", "Error, esta seguro de agregar este empleado al sistema? (s: si, n: no) (ingrese una de las dos letras)\n", letraRespuesta);
+		if(*letraRespuesta == 's')
+		{
+			ll_add(pArrayListEmployee, pNuevoEmpleado);
+			retorno = 0;
+		}
+		else
+		{
+			printf("Se ha cancelado el alta del empleado\n");
+		}
 	}
 
     return retorno;
@@ -284,15 +294,7 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 
 	if(pArrayListEmployee != NULL && tamArrayEmpleados > 0)
 	{
-		for(int i=0; i<tamArrayEmpleados; i++)
-		{
-			Employee* pEmpleado = ll_get(pArrayListEmployee, i);
-			if(pEmpleado != NULL)
-			{
-				*(pEmpleados + i) = *pEmpleado;
-			}
-			pEmpleado = NULL;
-		}
+		pEmpleados = nexusEmployee_and_Ll_getEmployees(pArrayListEmployee);
 
 		for(int j=0; j<tamArrayEmpleados; j++)
 		{
@@ -316,6 +318,11 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
+
+
+
+
+
     return 1;
 }
 

@@ -44,7 +44,6 @@ int main()
             	else
             	{
                     controller_loadFromText("data.csv",listaEmpleados);
-                    // printf("Se cargaron los datos modo texto con exito\n");
                     banderaEmpleadosModoTexto = 1;
             	}
                 break;
