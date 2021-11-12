@@ -13,6 +13,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 {
 	FILE* pFile = NULL;
 	pFile = fopen(path, "r");
+
 	int estado = 1;
 	int retornoParser;
 
@@ -77,14 +78,14 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 	char horasTrabajadasTransformadas[20];
 	int sueldoEmpleado;
 	char sueldoEmpleadoTransformado[20];
+	int ultimoID;
 
 	Employee* pNuevoEmpleado;
 
-
 	if(pArrayListEmployee != NULL)
 	{
-
-		nuevoID = ll_len(pArrayListEmployee) + 1;
+		ultimoID = nexusEmployee_and_Ll_findLastID(pArrayListEmployee);
+		nuevoID = ultimoID + 1;
 		itoa(nuevoID, nuevoIDTransformado, 10);
 
 		funciones_imput_pedirYValidarCadena("Ingrese nombre del nuevo empleado\n", "Error, reingrese nombre del nuevo empleado (solo letras, espacios o guiones)\n", 127, nombreEmpleado);
@@ -116,12 +117,6 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 int controller_editEmployee(LinkedList* pArrayListEmployee)
 {
 	int estado = 1;
-
-	int *pNumeroPedido = (int*) malloc(sizeof(int));
-
-	int tamListEmployee = ll_len(pArrayListEmployee);
-	int indexEmpleado = -1;
-
 	int opcion = -1;
 
 	char* nombreAux = (char*) malloc(sizeof(char)*128);
@@ -129,30 +124,16 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 	int* horasTrabajadasAux = (int*) malloc(sizeof(int));
 
 	char* letraRespuesta = (char*) malloc(sizeof(char));
+	int* pNumeroPedido = (int*) malloc(sizeof(int));
 
 	Employee* pEmpleadoAux = (Employee*) malloc(sizeof(Employee));
+	int indexEmpleado;
 
-	if(pArrayListEmployee != NULL)
-	{
-		funciones_imput_pedirYValidarEntero("Ingrese el id del empleado a modificar datos", "Error, ingrese el id del empleado a modificar datos (solo numeros)", 1, tamListEmployee, pNumeroPedido);
+	int tamListEmployee = ll_len(pArrayListEmployee);
 
-		for(int j =0; j< tamListEmployee; j++)
-		{
-			Employee* pEmpleadoABuscar = ll_get(pArrayListEmployee, j);
+	funciones_imput_pedirYValidarEntero("Ingrese el id del empleado a modificar datos", "Error, ingrese el id del empleado a modificar datos (solo numeros)", 1, tamListEmployee, pNumeroPedido);
 
-			if(pEmpleadoABuscar->id == *pNumeroPedido)
-			{
-				indexEmpleado = j;
-				break;
-			}
-			else
-			{
-				if((j == tamListEmployee -1) && (pEmpleadoABuscar->id != *pNumeroPedido))
-				{
-					printf("Error, no se encontro empleado con ese id\n");
-				}
-			}
-		}
+	indexEmpleado = nexusEmployee_and_Ll_findEmployeeByID(pArrayListEmployee, *pNumeroPedido);
 
 		if(indexEmpleado != -1)
 		{
@@ -230,9 +211,10 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 				break;
 			}
 		}
-	}
-    return estado;
+	return estado;
 }
+
+
 
 /** \brief Baja de empleado
  *
@@ -243,7 +225,46 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_removeEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int* idEmpleado = (int*)malloc(sizeof(int));
+	int indexEmpleado;
+	int tamListEmpleados;
+	int retorno = 1;
+
+	char* respuesta = (char*)malloc(sizeof(char));
+
+	Employee* pEmpleadoBuscado = NULL;
+
+	if(pArrayListEmployee != NULL)
+	{
+		tamListEmpleados = ll_len(pArrayListEmployee);
+
+		funciones_imput_pedirYValidarEntero("Ingrese el id del empleado a eliminar del sistema\n", "Error, reingrese el id del empleado a eliminar del sistema\n", 1, tamListEmpleados, idEmpleado);
+
+		indexEmpleado = nexusEmployee_and_Ll_findEmployeeByID(pArrayListEmployee, *idEmpleado);
+
+		if(indexEmpleado != -1)
+		{
+			printf("Empleado encontrado\n");
+			pEmpleadoBuscado = ll_get(pArrayListEmployee, indexEmpleado);
+
+			printf("%-5s %-12s %-16s %-9s\n", "ID", "NOMBRE", "HORAS TRABAJO", "SUELDO");
+			employee_showEmpleado(pEmpleadoBuscado);
+
+			funciones_imput_pedirYValidarCaracter("Esta seguro que desea eliminar este empleado del sistema? (s: si, n: no)\n", "Error, esta seguro que desea eliminar este empleado del sistema? (s: si, n: no) (ingrese una de las dos letras)\n", respuesta);
+
+			if(*respuesta == 's')
+			{
+				ll_remove(pArrayListEmployee, indexEmpleado);
+				printf("Empleado dado de baja del sistema exitosamente\n");
+				retorno = 0;
+			}
+			else
+			{
+				printf("Se ha cancelado la baja del empleado del sistema\n");
+			}
+		}
+	}
+    return retorno;
 }
 
 /** \brief Listar empleados
@@ -266,8 +287,10 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 		for(int i=0; i<tamArrayEmpleados; i++)
 		{
 			Employee* pEmpleado = ll_get(pArrayListEmployee, i);
-			*(pEmpleados + i) = *pEmpleado;
-
+			if(pEmpleado != NULL)
+			{
+				*(pEmpleados + i) = *pEmpleado;
+			}
 			pEmpleado = NULL;
 		}
 

@@ -92,6 +92,7 @@ int main()
                 break;
             case 5:
             	printf("Elejiste la opcion 5-Baja de empleado\n");
+            	controller_removeEmployee(listaEmpleados);
 
                 break;
             case 6:

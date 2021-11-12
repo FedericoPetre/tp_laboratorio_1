@@ -35,6 +35,7 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 			i++;
 		}
 		estado = 0;
+		fclose(pFile);
 	}
 
 	return estado;

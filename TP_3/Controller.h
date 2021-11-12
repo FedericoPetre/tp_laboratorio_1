@@ -6,6 +6,7 @@
 #include "LinkedList.h"
 #include "Employee.h"
 #include "funciones_imput.h"
+#include "nexusEmployee_and_Ll.h"
 
 
 int controller_loadFromText(char* path , LinkedList* pArrayListEmployee);
