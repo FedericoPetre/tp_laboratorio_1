@@ -402,7 +402,7 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 			}
 			break;
 		}
-		printf("Ordenando empleados...\nEste proceso puede demorar unos segundos\n");
+		printf("Ordenando empleados...\nPor favor, espere mientras se ordena: este proceso puede demorar algunos segundos\n");
 
 		ll_sort(pArrayListEmployee, funcionQueCompara, orden);
 		printf("Empleados ordenados con exito\n");
