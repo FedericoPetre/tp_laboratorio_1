@@ -17,5 +17,8 @@ int nexusEmployee_and_Ll_findEmployeeByID(LinkedList* this, int id);
 int nexusEmployee_and_Ll_findLastID(LinkedList* this);
 Employee* nexusEmployee_and_Ll_getEmployees(LinkedList* this);
 
+Employee* nexusEmployee_and_Ll_sortEmployeesByID(LinkedList* this);
+
+
 
 #endif /* NEXUSEMPLOYEE_AND_LL_H_ */

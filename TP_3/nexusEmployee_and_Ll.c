@@ -99,3 +99,6 @@ Employee* nexusEmployee_and_Ll_getEmployees(LinkedList* this)
 	}
 	return pEmpleadosRetorno;
 }
+
+
+
