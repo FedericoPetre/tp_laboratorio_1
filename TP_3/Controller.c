@@ -44,20 +44,26 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
  * \return int
  *
  */
-int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee) // terminar esta funcion y el parser binary tambien (cargar los datos al archivo binario tmb)
+int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 {
+	int retorno = 1;
+
 	FILE* pFile = NULL;
 	pFile = fopen(path, "rb");
 
 	if(pFile != NULL && pArrayListEmployee != NULL)
 	{
-		parser_EmployeeFromBinary(pFile, pArrayListEmployee);
+		retorno = parser_EmployeeFromBinary(pFile, pArrayListEmployee);
 	}
 	fclose(pFile);
 
-	printf("Se cargaron los datos desde el archivo, modo binario\n");
+	if(retorno == 0)
+	{
+		printf("Se cargaron los datos desde el archivo, modo binario\n");
+	}
 
-    return 1;
+
+    return retorno;
 }
 
 /** \brief Alta de empleados
@@ -320,6 +326,12 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
 	int retorno = 1;
 
+	if(pArrayListEmployee != NULL)
+	{
+		// ll_sort(pArrayListEmployee, int (*pFunc)(void* ,void*), int order);
+		retorno = 0;
+	}
+
     return retorno;
 }
 
@@ -377,6 +389,32 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int retorno = 1;
+
+	FILE* pFile = NULL;
+	pFile = fopen(path, "wb");
+
+	int tamLinkedList;
+
+	if(pFile != NULL && pArrayListEmployee != NULL)
+	{
+		tamLinkedList = ll_len(pArrayListEmployee);
+
+		for(int i=0; i<tamLinkedList; i++)
+		{
+			Employee* pEmpleado = ll_get(pArrayListEmployee, i);
+
+			if(pEmpleado != NULL)
+			{
+				fwrite(pEmpleado, sizeof(Employee), 1, pFile);
+				retorno = 0;
+			}
+			pEmpleado = NULL;
+
+		}
+		fclose(pFile);
+		printf("El archivo fue guardado exitosamente\n");
+	}
+    return retorno;
 }
 

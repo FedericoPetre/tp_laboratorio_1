@@ -55,7 +55,7 @@ int main()
             	}
             	else
             	{
-                	// controller_loadFromBinary("dataBinario.csv",listaEmpleados);
+            		controller_loadFromBinary("dataBinario.csv",listaEmpleados);
                 	banderaEmpleadosModoBinario = 1;
             	}
                 break;
@@ -156,7 +156,7 @@ int main()
             		{
             			if(banderaEmpleadosModoTexto != 1 && banderaEmpleadosModoBinario == 1)
             			{
-                    		//controller_saveAsBinary("data.csv",listaEmpleados);
+                    		controller_saveAsBinary("dataBinario.csv",listaEmpleados);
             			}
             		}
             	}
