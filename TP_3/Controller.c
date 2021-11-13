@@ -145,9 +145,7 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 	Employee* pEmpleadoAux = (Employee*) malloc(sizeof(Employee));
 	int indexEmpleado;
 
-	int tamListEmployee = ll_len(pArrayListEmployee);
-
-	funciones_imput_pedirYValidarEntero("Ingrese el id del empleado a modificar datos", "Error, ingrese el id del empleado a modificar datos (solo numeros)", 1, tamListEmployee, pNumeroPedido);
+	funciones_imput_pedirYValidarEntero("Ingrese el id del empleado a modificar datos", "Error, ingrese el id del empleado a modificar datos (solo numeros)", 1, 999999, pNumeroPedido);
 
 	indexEmpleado = nexusEmployee_and_Ll_findEmployeeByID(pArrayListEmployee, *pNumeroPedido);
 
@@ -227,6 +225,10 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 				break;
 			}
 		}
+		else
+		{
+			printf("Error, no se ha encontrado ningun empleado con ese id\n");
+		}
 	return estado;
 }
 
@@ -243,7 +245,6 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 {
 	int* idEmpleado = (int*)malloc(sizeof(int));
 	int indexEmpleado;
-	int tamListEmpleados;
 	int retorno = 1;
 
 	char* respuesta = (char*)malloc(sizeof(char));
@@ -252,9 +253,7 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 
 	if(pArrayListEmployee != NULL)
 	{
-		tamListEmpleados = ll_len(pArrayListEmployee);
-
-		funciones_imput_pedirYValidarEntero("Ingrese el id del empleado a eliminar del sistema\n", "Error, reingrese el id del empleado a eliminar del sistema\n", 1, tamListEmpleados, idEmpleado);
+		funciones_imput_pedirYValidarEntero("Ingrese el id del empleado a eliminar del sistema\n", "Error, reingrese el id del empleado a eliminar del sistema\n", 1, 999999, idEmpleado);
 
 		indexEmpleado = nexusEmployee_and_Ll_findEmployeeByID(pArrayListEmployee, *idEmpleado);
 
@@ -278,6 +277,10 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 			{
 				printf("Se ha cancelado la baja del empleado del sistema\n");
 			}
+		}
+		else
+		{
+			printf("Error, no se ha encontrado ningun empleado con ese id\n");
 		}
 	}
     return retorno;
