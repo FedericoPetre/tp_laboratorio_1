@@ -17,6 +17,9 @@ void funcionMenu(void)
     int banderaEmpleadosModoTexto = 0;
     int banderaEmpleadosModoBinario = 0;
     int cantidadEmpleados = 0;
+    int flagCambiarionDatos = 0;
+    char respuesta;
+
 
     do{
     	funciones_imput_pedirYValidarEntero("Ingrese opcion:\n1-Cargar los datos de los empleados(modo texto)\n2-Cargar los datos de los empleados(modo binario)\n3-Alta de empleado\n4-Modificar datos de empleado\n5-Baja de empleado\n6-Listar empleados\n7-Ordenar empleados\n8-Guardar los datos de los empleados(modo texto)\n9-Guardar los datos de los empleados(modo binario)\n10-Salir\n", "Error, opcion no valida, reingrese opcion:\n1-Cargar los datos de los empleados(modo texto)\n2-Cargar los datos de los empleados(modo binario)\n3-Alta de empleado\n4-Modificar datos de empleado\n5-Baja de empleado\n6-Listar empleados\n7-Ordenar empleados\n8-Guardar los datos de los empleados(modo texto)\n9-Guardar los datos de los empleados(modo binario)\n10-Salir\n", 1, 10, &option);
@@ -60,6 +63,7 @@ void funcionMenu(void)
             		if(controller_addEmployee(listaEmpleados) == 0)
             		{
             			printf("Empleado dado de alta con exito\n");
+            			flagCambiarionDatos = 1;
             			cantidadEmpleados++;
             		}
             		else
@@ -78,6 +82,7 @@ void funcionMenu(void)
             	else
             	{
             		controller_editEmployee(listaEmpleados);
+            		flagCambiarionDatos = 1;
             	}
                 break;
             case 5:
@@ -86,6 +91,7 @@ void funcionMenu(void)
             	{
             		controller_removeEmployee(listaEmpleados);
             		cantidadEmpleados--;
+            		flagCambiarionDatos = 1;
             	}
             	else
             	{
@@ -113,6 +119,7 @@ void funcionMenu(void)
             	else
             	{
             		controller_sortEmployee(listaEmpleados);
+            		flagCambiarionDatos = 1;
             	}
 
 
@@ -160,8 +167,27 @@ void funcionMenu(void)
             	}
                 break;
             case 10:
-            	printf("Elejiste la opcion 10-Salir\nSaliendo del sistema....\nHas salido del sistema\n");
-            	ll_deleteLinkedList(listaEmpleados);
+            	printf("Elejiste la opcion 10-Salir\n");
+
+            	if(flagCambiarionDatos == 1)
+            	{
+            		funciones_imput_pedirYValidarCaracter("Esta seguro de que desea salir? (s: si, n: no)\nTodos los cambios que no fueron guardados se perderan\n", "Error, esta seguro de que desea salir? (opc 's': si, opc 'n': no)\nTodos los cambios que no fueron guardados se perderan\n", &respuesta);
+            		if(respuesta == 's')
+            		{
+            			printf("Saliendo del sistema...\n");
+            			ll_deleteLinkedList(listaEmpleados);
+            			printf("Has salido del sistema\n");
+            		}
+            		else
+            		{
+            			option = 0;
+            			printf("Elejiste no salir\nVolviendo al menu principal...\n");
+            		}
+            	}
+            	else
+            	{
+            		printf("Saliendo del sistema...\nHas salido del sistema\n");
+            	}
                 break;
             default:
             	printf("Error - Opcion no válida, reingrese opcion\n");
