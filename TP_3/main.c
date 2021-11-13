@@ -29,6 +29,7 @@ int main()
 
     int banderaEmpleadosModoTexto = 0;
     int banderaEmpleadosModoBinario = 0;
+    int cantidadEmpleados = 0;
 
     do{
     	funciones_imput_pedirYValidarEntero("Ingrese opcion:\n1-Cargar los datos de los empleados(modo texto)\n2-Cargar los datos de los empleados(modo binario)\n3-Alta de empleado\n4-Modificar datos de empleado\n5-Baja de empleado\n6-Listar empleados\n7-Ordenar empleados\n8-Guardar los datos de los empleados(modo texto)\n9-Guardar los datos de los empleados(modo binario)\n10-Salir\n", "Error, opcion no valida, reingrese opcion:\n1-Cargar los datos de los empleados(modo texto)\n2-Cargar los datos de los empleados(modo binario)\n3-Alta de empleado\n4-Modificar datos de empleado\n5-Baja de empleado\n6-Listar empleados\n7-Ordenar empleados\n8-Guardar los datos de los empleados(modo texto)\n9-Guardar los datos de los empleados(modo binario)\n10-Salir\n", 1, 10, &option);
@@ -44,6 +45,7 @@ int main()
             	else
             	{
                     controller_loadFromText("data.csv",listaEmpleados);
+                    cantidadEmpleados = ll_len(listaEmpleados);
                     banderaEmpleadosModoTexto = 1;
             	}
                 break;
@@ -56,6 +58,7 @@ int main()
             	else
             	{
             		controller_loadFromBinary("dataBinario.csv",listaEmpleados);
+            		cantidadEmpleados = ll_len(listaEmpleados);
                 	banderaEmpleadosModoBinario = 1;
             	}
                 break;
@@ -63,13 +66,14 @@ int main()
             	printf("Elejiste la opcion 3-Alta de empleado\n");
             	if(banderaEmpleadosModoTexto != 1 && banderaEmpleadosModoBinario != 1)
             	{
-            		printf("Error al elegir alta de empleados, data de empleados vacia\n");
+            		printf("Error al elegir alta de empleados, lista de empleados sin cargar en texto ni binario\n");
             	}
             	else
             	{
             		if(controller_addEmployee(listaEmpleados) == 0)
             		{
             			printf("Empleado dado de alta con exito\n");
+            			cantidadEmpleados++;
             		}
             		else
             		{
@@ -91,12 +95,19 @@ int main()
                 break;
             case 5:
             	printf("Elejiste la opcion 5-Baja de empleado\n");
-            	controller_removeEmployee(listaEmpleados);
-
+            	if(banderaEmpleadosModoTexto == 1 || banderaEmpleadosModoBinario == 1)
+            	{
+            		controller_removeEmployee(listaEmpleados);
+            		cantidadEmpleados--;
+            	}
+            	else
+            	{
+            		printf("Error al elegir baja empleados, lista vacia\n");
+            	}
                 break;
             case 6:
             	printf("Elejiste la opcion 6-Listar empleados\n");
-            	if(banderaEmpleadosModoTexto == 1 || banderaEmpleadosModoBinario == 1)
+            	if((banderaEmpleadosModoTexto == 1 && cantidadEmpleados != 0)|| (banderaEmpleadosModoBinario == 1 && cantidadEmpleados != 0))
             	{
             		printf("Mostrando lista de empleados...\n");
                 	controller_ListEmployee(listaEmpleados);

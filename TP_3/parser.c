@@ -15,7 +15,6 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 	char nombre[30];
 	char horasTrabajadas[20];
 	char sueldo[20];
-	int i=0;
 
 	if(pFile != NULL)
 	{
@@ -32,7 +31,6 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 
 			ll_add(pArrayListEmployee, empleado);
 			empleado = NULL;
-			i++;
 		}
 		estado = 0;
 		fclose(pFile);

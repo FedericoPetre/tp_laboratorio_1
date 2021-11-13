@@ -32,4 +32,6 @@ int employee_getSueldo(Employee* this,int* sueldo);
 
 int employee_showEmpleado(Employee* this);
 
+// int employee_comparateByID(Employee* this1, Employee* this2);
+
 #endif // employee_H_INCLUDED

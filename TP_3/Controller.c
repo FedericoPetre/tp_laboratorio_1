@@ -325,9 +325,73 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
 	int retorno = 1;
+	int opcion = -1;
+	int opcionOrden = 1;
 
 	if(pArrayListEmployee != NULL)
 	{
+		funciones_imput_pedirYValidarEntero("Ingrese opcion de ordenamiento:\n1-Ordenar por ID\n2-Ordenar por nombre\n3-Ordenar por horas trabajadas\n4-Ordenar por sueldo\n", "Error, reongrese opcion de ordenamiento (1-4):\n1-Ordenar por ID\n2-Ordenar por nombre\n3-Ordenar por horas trabajadas\n4-Ordenar por sueldo\n", 1, 4, &opcion);
+
+		switch(opcion)
+		{
+		case 1:
+			printf("Has elejido la opcion 1-Ordenar por ID\n");
+			funciones_imput_pedirYValidarEntero("Ingrese modo de ordenar:\n1-Ordenar ascendentemente (menor ID a mayor ID)\n2-Ordenar descendentemente (mayor ID a menor ID)\n","Error, reingrese modo de ordenar (1 o 2):\n1-Ordenar ascendentemente (menor ID a mayor ID)\n2-Ordenar descendentemente (mayor ID a menor ID)\n", 1, 2, &opcionOrden);
+			//puntero a funcion ordenar por ID
+			switch(opcionOrden)
+			{
+			case 1:
+				printf("Has elejido la opcion 1-Ordenar por ID ascendentemente (menor ID a mayor ID)\n");
+				break;
+			case 2:
+				printf("Has elejido la opcion 2-Ordenar por ID descendentemente (mayor ID a menor ID)\n");
+				break;
+			}
+			break;
+		case 2:
+			printf("Has elejido la opcion 2-Ordenar por nombre\n");
+			funciones_imput_pedirYValidarEntero("Ingrese modo de ordenar:\n1-Ordenar ascendentemente (A-Z)\n2-Ordenar descendentemente (Z-A)\n","Error, reingrese modo de ordenar (1 o 2):\n1-Ordenar ascendentemente (A-Z)\n2-Ordenar descendentemente (Z-A)\n", 1, 2, &opcionOrden);
+			// puntero a funcion ordenar por nombre
+			switch(opcionOrden)
+			{
+			case 1:
+				printf("Has elejido la opcion 1-Ordenar por nombre ascendentemente (A-Z)\n");
+				break;
+			case 2:
+				printf("Has elejido la opcion 2-Ordenar por nombre descendentemente (Z-A)\n");
+				break;
+			}
+			break;
+		case 3:
+			printf("Has elejido la opcion 3-Ordenar por horas trabajadas\n");
+			funciones_imput_pedirYValidarEntero("Ingrese modo de ordenar:\n1-Ordenar ascendentemente (menos horas trabajadas a mas horas trabajadas)\n2-Ordenar descendentemente (mas horas trabajadas a menos horas trabajadas)\n","Error, reingrese modo de ordenar (1 o 2):\n1-Ordenar ascendentemente (menos horas trabajadas a mas horas trabajadas)\n2-Ordenar descendentemente (mas horas trabajadas a menos horas trabajadas)\n", 1, 2, &opcionOrden);
+			//puntero a funcion ordenar por horas trabajadas
+			switch(opcionOrden)
+			{
+			case 1:
+				printf("Has elejido la opcion 1-Ordenar por horas trabajadas ascendentemente (menos horas trabajadas a mas horas trabajadas)\n");
+				break;
+			case 2:
+				printf("Has elejido la opcion 2-Ordenar por horas trabajadas descendentemente (mas horas trabajadas a menos horas trabajadas)\n");
+				break;
+			}
+			break;
+		case 4:
+			printf("Has elejido la opcion 4-Ordenar por sueldo\n");
+			funciones_imput_pedirYValidarEntero("Ingrese modo de ordenar:\n1-Ordenar ascendentemente (menor sueldo a mayor sueldo)\n2-Ordenar descendentemente (mayor sueldo a menor sueldo)\n","Error, reingrese modo de ordenar (1 o 2):\n1-Ordenar ascendentemente (menor sueldo a mayor sueldo)\n2-Ordenar descendentemente (mayor a menor sueldo)\n", 1, 2, &opcionOrden);
+			// puntero a funcion ordenar por sueldo
+			switch(opcionOrden)
+			{
+			case 1:
+				printf("Has elejido la opcion 1-Ordenar por sueldo ascendentemente (menor sueldo a mayor sueldo)\n");
+				break;
+			case 2:
+				printf("Has elejido la opcion 2-Ordenar por sueldo descendentemente (mayor sueldo a menor sueldo)\n");
+				break;
+			}
+			break;
+		}
+
 		// ll_sort(pArrayListEmployee, int (*pFunc)(void* ,void*), int order);
 		retorno = 0;
 	}
