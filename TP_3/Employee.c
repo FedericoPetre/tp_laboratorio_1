@@ -257,6 +257,13 @@ int employee_getSueldo(Employee* this,int* sueldo)
 	return retorno;
 }
 
+/**
+ * @fn int employee_showEmpleado(Employee* this)
+ * @brief Para mostrar los datos de la estructura employee ingresada
+ *
+ * @param this Employee* empleado ingresado a traves de un puntero
+ * @return Retorna 0 si el parametro this es NULL. Caso contrario retorna 1.
+ */
 int employee_showEmpleado(Employee* this)
 {
 	int retorno= 0;
@@ -265,6 +272,89 @@ int employee_showEmpleado(Employee* this)
 	{
 		printf("%-5d %-12s %-16d %-9d\n", this->id, this->nombre, this->horasTrabajadas, this->sueldo);
 		retorno = 1;
+	}
+	return retorno;
+}
+
+/**
+ * @fn int employee_comparateByID(Employee* this1, Employee* this2)
+ * @brief Para comparar los IDS de los empleados ingresados a traves de punteros void (se castean a employee dentro de la funcion)
+ *
+ * @param this1 void*
+ * @param this2 void*
+ * @return Retorna -1 si el id del empleado casteado de this1 es mayor que el de this2. Retorna 0 si son iguales. Retorna 1 si el de this2 es mayor.
+ */
+int employee_comparateByID(void* this1, void* this2)
+{
+	int retorno;
+
+	Employee* pEmpleadoAux1;
+	Employee* pEmpleadoAux2;
+
+	if(this1 != NULL && this2 != NULL)
+	{
+		pEmpleadoAux1 = (Employee*) this1;
+		pEmpleadoAux2 = (Employee*) this2;
+
+		if((pEmpleadoAux1->id) > (pEmpleadoAux2->id))
+		{
+			retorno = -1;
+		}
+		else
+		{
+			if((pEmpleadoAux1->id) == (pEmpleadoAux2->id))
+			{
+				retorno = 0;
+			}
+			else
+			{
+				retorno = 1;
+			}
+		}
+	}
+	return retorno;
+}
+
+
+/**
+ * @fn int employee_comparateByNombre(void* this1, void* this2)
+ * @brief Para comparar los nombres de los empleados ingresados a traves de punteros void (se castean a employee dentro de la funcion)
+ *
+ * @param this1 void*
+ * @param this2 void*
+ * @return Retorna 1 si el nombre de this1 casteado a empleado esta antes alfabeticamente. Retorna 0 si es igual al de this2. Retorna -1 si está despues alfabeticamente.
+ */
+int employee_comparateByNombre(void* this1, void* this2)
+{
+	int retorno;
+	int retornoComparacion;
+
+	Employee* pEmpleadoAux1;
+	Employee* pEmpleadoAux2;
+
+	if(this1 != NULL && this2 != NULL)
+	{
+		pEmpleadoAux1 = (Employee*) this1;
+		pEmpleadoAux2 = (Employee*) this2;
+
+		retornoComparacion = strcmp((pEmpleadoAux1)->nombre, (pEmpleadoAux2)->nombre);
+
+		if(retornoComparacion == -1)
+		{
+			retorno = 1;
+		}
+		else
+		{
+			if(retornoComparacion == 0)
+			{
+				retorno = 0;
+			}
+			else
+			{
+				retorno = -1;
+			}
+		}
+
 	}
 	return retorno;
 }

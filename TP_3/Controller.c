@@ -327,6 +327,9 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 	int retorno = 1;
 	int opcion = -1;
 	int opcionOrden = 1;
+	int orden = -1;
+
+	int (*funcionQueCompara)(void* this1, void* this2);
 
 	if(pArrayListEmployee != NULL)
 	{
@@ -337,28 +340,32 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 		case 1:
 			printf("Has elejido la opcion 1-Ordenar por ID\n");
 			funciones_imput_pedirYValidarEntero("Ingrese modo de ordenar:\n1-Ordenar ascendentemente (menor ID a mayor ID)\n2-Ordenar descendentemente (mayor ID a menor ID)\n","Error, reingrese modo de ordenar (1 o 2):\n1-Ordenar ascendentemente (menor ID a mayor ID)\n2-Ordenar descendentemente (mayor ID a menor ID)\n", 1, 2, &opcionOrden);
-			//puntero a funcion ordenar por ID
+			funcionQueCompara = employee_comparateByID;
 			switch(opcionOrden)
 			{
 			case 1:
 				printf("Has elejido la opcion 1-Ordenar por ID ascendentemente (menor ID a mayor ID)\n");
+				orden = 0;
 				break;
 			case 2:
 				printf("Has elejido la opcion 2-Ordenar por ID descendentemente (mayor ID a menor ID)\n");
+				orden = 1;
 				break;
 			}
 			break;
 		case 2:
 			printf("Has elejido la opcion 2-Ordenar por nombre\n");
 			funciones_imput_pedirYValidarEntero("Ingrese modo de ordenar:\n1-Ordenar ascendentemente (A-Z)\n2-Ordenar descendentemente (Z-A)\n","Error, reingrese modo de ordenar (1 o 2):\n1-Ordenar ascendentemente (A-Z)\n2-Ordenar descendentemente (Z-A)\n", 1, 2, &opcionOrden);
-			// puntero a funcion ordenar por nombre
+			funcionQueCompara = employee_comparateByNombre;
 			switch(opcionOrden)
 			{
 			case 1:
 				printf("Has elejido la opcion 1-Ordenar por nombre ascendentemente (A-Z)\n");
+				orden = 0;
 				break;
 			case 2:
 				printf("Has elejido la opcion 2-Ordenar por nombre descendentemente (Z-A)\n");
+				orden = 1;
 				break;
 			}
 			break;
@@ -391,8 +398,10 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 			}
 			break;
 		}
+		printf("Ordenando empleados...\nEste proceso puede demorar unos segundos\n");
 
-		// ll_sort(pArrayListEmployee, int (*pFunc)(void* ,void*), int order);
+		ll_sort(pArrayListEmployee, funcionQueCompara, orden);
+		printf("Empleados ordenados con exito\n");
 		retorno = 0;
 	}
 
