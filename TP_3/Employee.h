@@ -34,5 +34,7 @@ int employee_showEmpleado(Employee* this);
 
 int employee_comparateByID(void* this1, void* this2);
 int employee_comparateByNombre(void* this1, void* this2);
+int employee_comparateByHorasTrabajadas(void* this1, void* this2);
+int employee_comparateBySueldo(void* this1, void* this2);
 
 #endif // employee_H_INCLUDED

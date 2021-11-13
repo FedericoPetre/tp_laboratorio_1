@@ -359,4 +359,82 @@ int employee_comparateByNombre(void* this1, void* this2)
 	return retorno;
 }
 
+/**
+ * @fn int employee_comparateByHorasTrabajadas(void* this1, void* this2)
+ * @brief Para comparar las horas trabajadas de los empleados ingresados a traves de punteros void (se castean a employee dentro de la funcion)
+ *
+ * @param this1 void*
+ * @param this2 void*
+ * @return Retorna -1 si las horas trabajadas del empleado casteado de this1 es mayor que las horas trabajadas de this2. Retorna 0 si son iguales. Retorna 1 si las horas trabajadas de this2 es mayor.
+ */
+int employee_comparateByHorasTrabajadas(void* this1, void* this2)
+{
+	int retorno;
+
+	Employee* pEmpleadoAux1;
+	Employee* pEmpleadoAux2;
+
+	if(this1 != NULL && this2 != NULL)
+	{
+		pEmpleadoAux1 = (Employee*) this1;
+		pEmpleadoAux2 = (Employee*) this2;
+
+		if((pEmpleadoAux1->horasTrabajadas) > (pEmpleadoAux2->horasTrabajadas))
+		{
+			retorno = -1;
+		}
+		else
+		{
+			if((pEmpleadoAux1->horasTrabajadas) == (pEmpleadoAux2->horasTrabajadas))
+			{
+				retorno = 0;
+			}
+			else
+			{
+				retorno = 1;
+			}
+		}
+	}
+	return retorno;
+}
+
+/**
+ * @fn int employee_comparateBySueldo(void* this1, void* this2)
+ * @brief Para comparar el sueldo de los empleados ingresados a traves de punteros void (se castean a employee dentro de la funcion)
+ *
+ * @param this1 void*
+ * @param this2 void*
+ * @return Retorna -1 si el sueldo del empleado casteado de this1 es mayor que el sueldo de this2. Retorna 0 si son iguales. Retorna 1 si el sueldo de this2 es mayor.
+ */
+int employee_comparateBySueldo(void* this1, void* this2)
+{
+	int retorno;
+
+	Employee* pEmpleadoAux1;
+	Employee* pEmpleadoAux2;
+
+	if(this1 != NULL && this2 != NULL)
+	{
+		pEmpleadoAux1 = (Employee*) this1;
+		pEmpleadoAux2 = (Employee*) this2;
+
+		if((pEmpleadoAux1->sueldo) > (pEmpleadoAux2->sueldo))
+		{
+			retorno = -1;
+		}
+		else
+		{
+			if((pEmpleadoAux1->sueldo) == (pEmpleadoAux2->sueldo))
+			{
+				retorno = 0;
+			}
+			else
+			{
+				retorno = 1;
+			}
+		}
+	}
+	return retorno;
+}
+
 

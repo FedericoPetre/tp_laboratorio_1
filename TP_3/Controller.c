@@ -372,28 +372,32 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 		case 3:
 			printf("Has elejido la opcion 3-Ordenar por horas trabajadas\n");
 			funciones_imput_pedirYValidarEntero("Ingrese modo de ordenar:\n1-Ordenar ascendentemente (menos horas trabajadas a mas horas trabajadas)\n2-Ordenar descendentemente (mas horas trabajadas a menos horas trabajadas)\n","Error, reingrese modo de ordenar (1 o 2):\n1-Ordenar ascendentemente (menos horas trabajadas a mas horas trabajadas)\n2-Ordenar descendentemente (mas horas trabajadas a menos horas trabajadas)\n", 1, 2, &opcionOrden);
-			//puntero a funcion ordenar por horas trabajadas
+			funcionQueCompara = employee_comparateByHorasTrabajadas;
 			switch(opcionOrden)
 			{
 			case 1:
 				printf("Has elejido la opcion 1-Ordenar por horas trabajadas ascendentemente (menos horas trabajadas a mas horas trabajadas)\n");
+				orden = 0;
 				break;
 			case 2:
 				printf("Has elejido la opcion 2-Ordenar por horas trabajadas descendentemente (mas horas trabajadas a menos horas trabajadas)\n");
+				orden = 1;
 				break;
 			}
 			break;
 		case 4:
 			printf("Has elejido la opcion 4-Ordenar por sueldo\n");
 			funciones_imput_pedirYValidarEntero("Ingrese modo de ordenar:\n1-Ordenar ascendentemente (menor sueldo a mayor sueldo)\n2-Ordenar descendentemente (mayor sueldo a menor sueldo)\n","Error, reingrese modo de ordenar (1 o 2):\n1-Ordenar ascendentemente (menor sueldo a mayor sueldo)\n2-Ordenar descendentemente (mayor a menor sueldo)\n", 1, 2, &opcionOrden);
-			// puntero a funcion ordenar por sueldo
+			funcionQueCompara = employee_comparateBySueldo;
 			switch(opcionOrden)
 			{
 			case 1:
 				printf("Has elejido la opcion 1-Ordenar por sueldo ascendentemente (menor sueldo a mayor sueldo)\n");
+				orden = 0;
 				break;
 			case 2:
 				printf("Has elejido la opcion 2-Ordenar por sueldo descendentemente (mayor sueldo a menor sueldo)\n");
+				orden = 1;
 				break;
 			}
 			break;
