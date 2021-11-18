@@ -443,6 +443,22 @@ int ll_contains(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
 
+    int indiceElemento;
+
+    if(this != NULL)
+    {
+    	indiceElemento = ll_indexOf(this, pElement);
+
+    	if(indiceElemento != -1)
+    	{
+    		returnAux = 1;
+    	}
+    	else
+    	{
+    		returnAux = 0;
+    	}
+    }
+
     return returnAux;
 }
 
