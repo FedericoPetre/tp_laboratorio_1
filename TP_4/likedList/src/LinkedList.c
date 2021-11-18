@@ -513,7 +513,27 @@ LinkedList* ll_subList(LinkedList* this,int from,int to)
 {
     LinkedList* cloneArray = NULL;
 
-    return cloneArray;
+
+    int tamLista = ll_len(this);
+    int i;
+
+    void* pElementoCopiado;
+
+    if(this != NULL && from > -1 && from < tamLista && to > from && to < tamLista)
+    {
+    	cloneArray = ll_newLinkedList();
+
+    	if(cloneArray != NULL)
+    	{
+            for(i=from; i<to; i++)
+            {
+            	pElementoCopiado = ll_get(this, i);
+                ll_add(cloneArray, pElementoCopiado);
+            }
+    	}
+    }
+
+  return cloneArray;
 }
 
 
