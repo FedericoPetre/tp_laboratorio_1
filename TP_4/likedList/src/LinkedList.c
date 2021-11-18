@@ -155,7 +155,7 @@ int test_addNode(LinkedList* this, int nodeIndex,void* pElement)
                         ( 0) Si funciono correctamente
  *
  */
-int ll_add(LinkedList* this, void* pElement) // esta esta bien también.
+int ll_add(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
 
@@ -177,7 +177,7 @@ int ll_add(LinkedList* this, void* pElement) // esta esta bien también.
                             (pElement) Si funciono correctamente
  *
  */
-void* ll_get(LinkedList* this, int index) // esta la hice en clase
+void* ll_get(LinkedList* this, int index)
 {
     void* returnAux = NULL;
 
@@ -205,7 +205,7 @@ void* ll_get(LinkedList* this, int index) // esta la hice en clase
                         ( 0) Si funciono correctamente
  *
  */
-int ll_set(LinkedList* this, int index,void* pElement) //hecha en clase
+int ll_set(LinkedList* this, int index,void* pElement)
 {
     int returnAux = -1;
 
@@ -231,7 +231,7 @@ int ll_set(LinkedList* this, int index,void* pElement) //hecha en clase
                         ( 0) Si funciono correctamente
  *
  */
-int ll_remove(LinkedList* this,int index) //hecha en clase
+int ll_remove(LinkedList* this,int index)
 {
     int returnAux = -1;
 
@@ -280,7 +280,7 @@ int ll_remove(LinkedList* this,int index) //hecha en clase
                         ( 0) Si funciono correctamente
  *
  */
-int ll_clear(LinkedList* this) //hecha en clase
+int ll_clear(LinkedList* this)
 {
     int returnAux = -1;
     int tam = ll_len(this);
@@ -306,7 +306,7 @@ int ll_clear(LinkedList* this) //hecha en clase
                         ( 0) Si funciono correctamente
  *
  */
-int ll_deleteLinkedList(LinkedList* this) //hecha en clase
+int ll_deleteLinkedList(LinkedList* this)
 {
     int returnAux = -1;
 
@@ -334,6 +334,25 @@ int ll_indexOf(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
 
+    int tam = ll_len(this);
+    int i;
+
+    void* pElementAuxiliar = NULL;
+
+    if(this != NULL)
+    {
+    	for(i=0; i<tam ; i++)
+    	{
+    		pElementAuxiliar = ll_get(this, i); //nodo que puede contener al elemento
+
+    		if(pElementAuxiliar == pElement) // si el elemento correspodiente al nodo es igual al ingresado por parametro retorna la posicion (i)
+    		{
+    			returnAux = i;
+    			break;
+    		}
+    	}
+    }
+
     return returnAux;
 }
 
@@ -348,6 +367,21 @@ int ll_indexOf(LinkedList* this, void* pElement)
 int ll_isEmpty(LinkedList* this)
 {
     int returnAux = -1;
+
+    Node* pPrimerNodo = NULL;
+
+    if(this != NULL)
+    {
+    	pPrimerNodo = getNode(this, 0); //Si el primer nodo de la lista está vacío es porque toda la lista fue vaciada o nunca fue cargada. En caso de haber sido eliminado el elemento del nodo 0, se habrá puesto en su lugar el nodo siguiente (1) o el más proximo que no haya sido eliminado.
+    	if(pPrimerNodo != NULL) // Si no es nulo, es porque tiene a alguien cargado
+    	{
+    		returnAux = 0;
+    	}
+    	else
+    	{
+    		returnAux = 1; // si es nulo retorno 1 lista vacia
+    	}
+    }
 
     return returnAux;
 }
@@ -380,6 +414,18 @@ int ll_push(LinkedList* this, int index, void* pElement)
 void* ll_pop(LinkedList* this,int index)
 {
     void* returnAux = NULL;
+
+    int tamLista = ll_len(this);
+
+    if(this != NULL && index > -1 && index <tamLista)
+    {
+    	returnAux = ll_get(this, index);
+
+    	if(returnAux != NULL)
+    	{
+    		ll_remove(this,index);
+    	}
+    }
 
     return returnAux;
 }
