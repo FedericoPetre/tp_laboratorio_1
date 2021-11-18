@@ -475,6 +475,27 @@ int ll_containsAll(LinkedList* this,LinkedList* this2)
 {
     int returnAux = -1;
 
+    int tamLista2 = ll_len(this);
+    int i;
+    int retornoEstaContenido;
+    void* pElemento;
+
+    if(this != NULL && this2 != NULL)
+    {
+    	returnAux = 1;
+    	for(i=0; i<tamLista2; i++)
+    	{
+    		pElemento = ll_get(this2, i);
+    		retornoEstaContenido = ll_contains(this, pElemento);
+
+    		if(retornoEstaContenido == -1 || retornoEstaContenido == 0)
+    		{
+    			returnAux = 0;
+    			break;
+    		}
+    	}
+    }
+
     return returnAux;
 }
 
