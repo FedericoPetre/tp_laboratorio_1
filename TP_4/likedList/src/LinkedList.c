@@ -577,48 +577,41 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
     void* pElement1;
     void* pElement2;
 
+    int flagSwap;
+
     if(this != NULL && pFunc != NULL && order >-1 && order <2)
     {
-    	switch(order)
-    	{
-    	case 0:
-    		for(i=0; i<tam; i++)
-    		{
-    			for(j=i+1; j<tam; j++)
-    			{
-    				pElement1 = ll_get(this, i);
-    				pElement2 = ll_get(this, j);
+		for(i=0; i<tam-1; i++)
+		{
+			for(j=i+1; j<tam; j++)
+			{
 
-    				if(pFunc(pElement1, pElement2) == -1)
-    				{
-    					ll_set(this,j, pElement1);
-    					ll_set(this,i, pElement2);
+				pElement2 = ll_get(this, j);
+				pElement1 = ll_get(this, i);
 
-    				}
-    			}
-    		}
-    		returnAux = 0;
-    		break;
-    	case 1:
-    		for(i=0; i<tam; i++)
-    		{
-    			for(j=i+1; j<tam; j++)
-    			{
-    				pElement1 = ll_get(this, i);
-    				pElement2 = ll_get(this, j);
+				flagSwap = pFunc(pElement1, pElement2);
 
-    				if(pFunc(pElement1, pElement2) == 1)
-    				{
-    					ll_set(this,j, pElement1);
-    					ll_set(this,i, pElement2);
-    				}
-    			}
-    		}
-    		returnAux = 0;
-    		break;
-    	}
+				switch(order)
+				{
+				case 0:
+					if(flagSwap == -1)
+					{
+						ll_set(this,j, pElement1);
+						ll_set(this,i, pElement2);
+					}
+					break;
+				case 1:
+					if(flagSwap == 1)
+					{
+						ll_set(this,j, pElement1);
+						ll_set(this,i, pElement2);
+					}
+					break;
+				}
+			}
+		}
+    	returnAux = 0;
     }
-
     return returnAux;
 }
 
