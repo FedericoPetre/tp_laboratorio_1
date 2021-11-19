@@ -107,7 +107,6 @@ static int addNode(LinkedList* this, int nodeIndex,void* pElement)
 	if(this != NULL && nodeIndex > -1 && nodeIndex < tam+1)
 	{
 		pNuevoNodo -> pElement = pElement;
-		this -> size++;
 		if(nodeIndex==0)
 		{
 			pNuevoNodo -> pNextNode = this -> pFirstNode;
@@ -127,6 +126,7 @@ static int addNode(LinkedList* this, int nodeIndex,void* pElement)
 				(pNodoAnterior -> pNextNode) = pNuevoNodo;
 			}
 		}
+		this -> size++;
 		returnAux = 0;
 	}
 
@@ -163,8 +163,7 @@ int ll_add(LinkedList* this, void* pElement)
 
     if(this != NULL)
     {
-    	addNode(this, tam, pElement);
-    	returnAux = 0;
+    	returnAux = addNode(this, tam, pElement);
     }
     return returnAux;
 }
@@ -386,7 +385,7 @@ int ll_isEmpty(LinkedList* this)
     return returnAux;
 }
 
-/** \brief Inserta un nuevo elemento en la lista en la posicion indicada
+/** \brief Desplaza los elementos e inserta en la lista en la posicion indicada
  *
  * \param this LinkedList* Puntero a la lista
  * \param nodeIndex int Ubicacion donde se agregara el nuevo elemento
@@ -399,6 +398,10 @@ int ll_push(LinkedList* this, int index, void* pElement)
 {
     int returnAux = -1;
 
+    if(this != NULL)
+    {
+    	returnAux = addNode(this, index, pElement);
+    }
     return returnAux;
 }
 
@@ -519,7 +522,7 @@ LinkedList* ll_subList(LinkedList* this,int from,int to)
 
     void* pElementoCopiado;
 
-    if(this != NULL && from > -1 && from < tamLista && to > from && to < tamLista)
+    if(this != NULL && from > -1 && from < tamLista+1 && to > from && to < tamLista+1)
     {
     	cloneArray = ll_newLinkedList();
 
@@ -547,6 +550,13 @@ LinkedList* ll_subList(LinkedList* this,int from,int to)
 LinkedList* ll_clone(LinkedList* this)
 {
     LinkedList* cloneArray = NULL;
+
+    int tam = ll_len(this);
+
+    if(this != NULL)
+    {
+    	cloneArray = ll_subList(this, 0, tam);
+    }
 
     return cloneArray;
 }
