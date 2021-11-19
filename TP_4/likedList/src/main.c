@@ -46,7 +46,7 @@ int main(void)
 	startTesting(16); // ll_containsAll
 	startTesting(17); // ll_subList chequear
 	startTesting(18); // ll_clone chequear
-/*	startTesting(19); // ll_sort */ //hacer esta funcion
+	startTesting(19); // ll_sort */ //chequear
 
     return 0;
 }
