@@ -367,21 +367,20 @@ int ll_isEmpty(LinkedList* this)
 {
     int returnAux = -1;
 
-    Node* pPrimerNodo = NULL;
+    int tam = ll_len(this);
 
     if(this != NULL)
     {
-    	pPrimerNodo = getNode(this, 0); //Si el primer nodo de la lista está vacío es porque toda la lista fue vaciada o nunca fue cargada. En caso de haber sido eliminado el elemento del nodo 0, se habrá puesto en su lugar el nodo siguiente (1) o el más proximo que no haya sido eliminado.
-    	if(pPrimerNodo != NULL) // Si no es nulo, es porque tiene a alguien cargado
+    	switch(tam)
     	{
-    		returnAux = 0;
-    	}
-    	else
-    	{
-    		returnAux = 1; // si es nulo retorno 1 lista vacia
+			case 0:
+				returnAux = 1;
+				break;
+			default:
+				returnAux = 0;
+				break;
     	}
     }
-
     return returnAux;
 }
 
@@ -398,7 +397,9 @@ int ll_push(LinkedList* this, int index, void* pElement)
 {
     int returnAux = -1;
 
-    if(this != NULL)
+    int tam = ll_len(this);
+
+    if(this != NULL && index > -1 && index < tam+1)
     {
     	returnAux = addNode(this, index, pElement);
     }
@@ -424,10 +425,7 @@ void* ll_pop(LinkedList* this,int index)
     {
     	returnAux = ll_get(this, index);
 
-    	if(returnAux != NULL)
-    	{
-    		ll_remove(this,index);
-    	}
+    	ll_remove(this,index);
     }
 
     return returnAux;
@@ -491,7 +489,7 @@ int ll_containsAll(LinkedList* this,LinkedList* this2)
     		pElemento = ll_get(this2, i);
     		retornoEstaContenido = ll_contains(this, pElemento);
 
-    		if(retornoEstaContenido == -1 || retornoEstaContenido == 0)
+    		if(retornoEstaContenido == 0)
     		{
     			returnAux = 0;
     			break;
@@ -522,10 +520,9 @@ LinkedList* ll_subList(LinkedList* this,int from,int to)
 
     void* pElementoCopiado;
 
-    if(this != NULL && from > -1 && from < tamLista+1 && to > from && to < tamLista+1)
+    if(this != NULL && from > -1 && to < tamLista+1 && from <= to)
     {
     	cloneArray = ll_newLinkedList();
-
     	if(cloneArray != NULL)
     	{
             for(i=from; i<to; i++)
